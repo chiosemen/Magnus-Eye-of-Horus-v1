@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magnus Eye of Horus – Grandmaster Playbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              borderRadius: {
+                lg: "var(--radius)",
+                xl: "calc(var(--radius) + 4px)",
+                "2xl": "calc(var(--radius) + 8px)",
+              },
+              colors: {
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                card: "hsl(var(--card))",
+                "card-foreground": "hsl(var(--card-foreground))",
+                muted: "hsl(var(--muted))",
+                "muted-foreground": "hsl(var(--muted-foreground))",
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                primary: "hsl(var(--primary))",
+                "primary-foreground": "hsl(var(--primary-foreground))",
+                accent: "hsl(var(--accent))",
+                "accent-foreground": "hsl(var(--accent-foreground))",
+                "severity-critical": "hsl(var(--severity-critical))",
+                "severity-high": "hsl(var(--severity-high))",
+                "severity-medium": "hsl(var(--severity-medium))",
+                "severity-low": "hsl(var(--severity-low))",
+                blocked: "hsl(var(--blocked-bg))",
+                "blocked-foreground": "hsl(var(--blocked-fg))",
+              },
+            },
+          },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        @layer base {
+          :root {
+            --radius: 12px;
+
+            /* shadcn base */
+            --background: 0 0% 100%;
+            --foreground: 222 47% 11%;
+            --card: 0 0% 100%;
+            --card-foreground: 222 47% 11%;
+            --muted: 210 40% 96%;
+            --muted-foreground: 215 16% 47%;
+            --border: 214 32% 91%;
+            --input: 214 32% 91%;
+            --ring: 222 47% 11%;
+
+            /* Magnus / Eye of Horus brand */
+            --primary: 222 47% 11%;
+            --primary-foreground: 210 40% 98%;
+            --accent: 45 93% 47%;
+            --accent-foreground: 222 47% 11%;
+
+            /* Severity */
+            --severity-critical: 0 84% 60%;
+            --severity-high: 24 95% 53%;
+            --severity-medium: 45 93% 47%;
+            --severity-low: 210 20% 70%;
+
+            --blocked-bg: 0 84% 60%;
+            --blocked-fg: 0 0% 100%;
+          }
+
+          .dark {
+            --background: 222 47% 7%;
+            --foreground: 210 40% 98%;
+            --card: 222 47% 9%;
+            --card-foreground: 210 40% 98%;
+            --muted: 217 33% 14%;
+            --muted-foreground: 215 20% 65%;
+            --border: 217 33% 18%;
+            --input: 217 33% 18%;
+            --ring: 210 40% 98%;
+
+            --primary: 210 40% 98%;
+            --primary-foreground: 222 47% 11%;
+            --accent: 45 93% 47%;
+            --accent-foreground: 222 47% 11%;
+
+            --blocked-bg: 0 62% 42%;
+            --blocked-fg: 0 0% 100%;
+          }
+        }
+        
+        @layer base {
+          * {
+            @apply border-border;
+          }
+          body {
+            @apply bg-background text-foreground;
+          }
+        }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+        "react/": "https://esm.sh/react@18.2.0/",
+        "react": "https://esm.sh/react@18.2.0",
+        "lucide-react": "https://esm.sh/lucide-react@0.292.0",
+        "zod": "https://esm.sh/zod@3.22.4",
+        "class-variance-authority": "https://esm.sh/class-variance-authority@0.7.0",
+        "clsx": "https://esm.sh/clsx@2.0.0",
+        "tailwind-merge": "https://esm.sh/tailwind-merge@2.0.0"
+      }
+    }
+    </script>
+</head>
+<body class="bg-background text-foreground">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
