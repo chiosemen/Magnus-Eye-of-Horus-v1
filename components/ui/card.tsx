@@ -1,7 +1,8 @@
-
 import * as React from "react"
 import { cn } from "../../lib/utils.ts"
 
+// card.tsx is the primary implementation file for the Card component.
+// Using lowercase to match the project's convention (badge.tsx, button.tsx).
 export const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>

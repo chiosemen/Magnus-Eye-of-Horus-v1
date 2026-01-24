@@ -1,6 +1,4 @@
-
 import React from 'react';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
@@ -51,7 +49,7 @@ const playbooks: Playbook[] = [
         },
         response: {
             title: 'Eye of Horus Response',
-            points: []
+            points: ['⚠️ Flag: Missing Expenditure Responsibility', '⏸ Pause workflow']
         },
         remediation: {
             title: 'Remediation',
@@ -71,7 +69,7 @@ const playbooks: Playbook[] = [
         },
         response: {
             title: 'Eye of Horus Response',
-            points: []
+            points: ['📊 Pattern detected: Peer norm deviation', '🔔 Advisory alert generated']
         },
         remediation: {
             title: 'Remediation',
@@ -88,7 +86,7 @@ const playbooks: Playbook[] = [
         },
         response: {
             title: 'Eye of Horus Response',
-            points: []
+            points: ['❌ Critical Block: Conflict indicators present', '🏛 Authority reference: IRC §4958']
         },
         remediation: {
             title: 'Remediation',

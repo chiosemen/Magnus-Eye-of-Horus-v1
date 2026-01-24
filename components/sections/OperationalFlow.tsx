@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import SectionHeader from '../ui/SectionHeader.tsx';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
+// FIX: Use lowercase card.tsx to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 
 const OperationalFlow: React.FC = () => {

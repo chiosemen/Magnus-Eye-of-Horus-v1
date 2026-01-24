@@ -1,5 +1,6 @@
+
 import React from 'react';
-// FIX: Use lowercase filename to resolve casing conflict with Card.tsx.
+// FIX: Use lowercase card.tsx with explicit extension to resolve casing conflict.
 import { Card, CardContent } from "./ui/card.tsx";
 // FIX: Use explicit extension for consistency.
 import { Button } from "./ui/button.tsx";

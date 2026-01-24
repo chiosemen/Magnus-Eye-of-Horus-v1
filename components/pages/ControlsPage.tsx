@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
+// FIX: Use lowercase card.tsx to resolve casing conflicts.
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
 import ToggleSwitch from '../ui/ToggleSwitch.tsx';
 

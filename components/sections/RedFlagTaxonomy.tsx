@@ -1,55 +1,46 @@
-
 import React from 'react';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
+// FIX: Use lowercase card.tsx to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
+import { Type, AlertTriangle, Scale, Target } from 'lucide-react';
 import type { RedFlag } from '../../types.ts';
 
-const taxPreparerFlags: RedFlag[] = [
+const technicalTriggers: RedFlag[] = [
     { 
         level: 'Critical', 
-        category: 'EITC Diligence', 
-        trigger: 'Form 8867 missing or incomplete when EITC is claimed.', 
-        details: 'Action Required: Completion of Form 8867 is necessary to meet documented diligence requirements under IRC §6695(g) before proceeding.',
-        rationale: 'The IRS is statutorily mandated to reduce the high EITC error rate. They view preparer diligence as the primary gatekeeper against improper payments, which are a major source of the national "tax gap."',
-        enforcement: 'IRC §6695(g) Preparer Penalties; Circular 230 §10.22; IRS Program 4843 (Paid Preparer Compliance).',
-        escalation: '1. Letter 4843C proposing penalty. 2. Full audit of preparer\'s EITC claims. 3. Referral to Office of Professional Responsibility (OPR). 4. Injunction to bar from practice.'
+        category: 'RPM Cluster Integrity', 
+        trigger: 'PTIN/EFIN mismatch or Un-enrolled signer detected.', 
+        details: 'Action Required: Verify PTIN status in RPO Directory. Ghost preparer signals trigger immediate Program 4843 expansion.',
+        rationale: 'The IRS RPO uses the RPM (Return Preparer Mapping) system to flag unauthorized practice. Inconsistencies suggest evasion of preparer penalties.',
+        enforcement: 'IRC §6695(c) Failure to Furnish PTIN; Injunction under §7407.',
+        escalation: '1. RPM Cluster Alert. 2. Full PTIN review. 3. Office of Professional Responsibility (OPR) Referral.'
     },
     { 
         level: 'Critical', 
-        category: 'PTIN Validity', 
-        trigger: 'Preparer PTIN is expired, invalid, or does not match firm records.', 
-        details: 'Action Required: All filings must be signed by a preparer with a valid, current PTIN to ensure proper authorization and accountability.',
-        rationale: 'An invalid PTIN suggests an unauthorized preparer, which is a primary target of IRS enforcement. It also breaks the chain of accountability for all returns filed under that number.',
-        enforcement: 'IRC §6109; IRS Return Preparer Office (RPO) compliance actions.',
-        escalation: '1. Rejection of e-filed returns. 2. Penalties for failure to furnish a valid PTIN. 3. Investigation by the RPO for unauthorized practice.'
+        category: 'DIF Score Weighting', 
+        trigger: 'Schedule C "Round Number" entries or unrealistic COGS ratios.', 
+        details: 'Action Required: Attach receipts/bank statements. Returns with high DIF scores are automatically selected for NRP Research Audits.',
+        rationale: 'Discriminant Function (DIF) scoring detects multi-field inconsistencies that defy economic norms (e.g., 90% COGS on service revenue).',
+        enforcement: 'IRC §6662 Accuracy-Related Penalties; §6694 Preparer Penalties.',
+        escalation: '1. Automated Selection. 2. Field Audit. 3. Civil Penalty assessment for "Reckless Disregard".'
     },
     { 
         level: 'High Risk', 
-        category: 'CTC/ACTC/AOTC Diligence', 
-        trigger: 'CTC/ACTC/AOTC claimed without complete Form 8867 Part III.', 
-        details: 'Remediation Required: The diligence checklist must be fully completed to provide evidence of meeting legal diligence requirements for these credits.',
-        rationale: 'Similar to EITC, these refundable credits have high error rates. The IRS uses Form 8867 completion as the primary evidence that the preparer met their legal diligence requirements.',
-        enforcement: 'IRC §6695(g); Circular 230 §10.22.',
-        escalation: '1. Penalty assessment letter. 2. Disallowance of credits for client. 3. Preparer audit if a pattern is detected.'
-    },
-    { 
-        level: 'High Risk', 
-        category: 'Head of Household Status', 
-        trigger: 'HoH status claimed but qualifying child lives with other parent via Form 8332.', 
-        details: 'Remediation Required: Review of Form 8332 and custody agreements is necessary to confirm HoH eligibility, which is subject to specific legal tests.',
-        rationale: 'HoH status is a frequent source of error and fraud. The IRS uses data matching to identify situations where two taxpayers (e.g., divorced parents) claim benefits for the same child, triggering audits.',
-        enforcement: 'IRC §6694 Understatement Penalty; IRS Automated Underreporter (AUR) program.',
-        escalation: '1. Client receives CP2000 notice proposing changes. 2. Audit of both parents. 3. Potential penalties for the preparer if their position lacked a reasonable basis.'
+        category: 'MSA Peer Norming', 
+        trigger: 'Refundable Credit claims exceed MSA Norm by Z-Score > 1.8.', 
+        details: 'Remediation Required: Complete 8867 Part IV with "Independent Interview Notes". High-Z scores trigger Letter 4843C.',
+        rationale: 'The IRS compares your firm against all preparers in your ZIP code. Outlier density suggests a "Refund Mill" profile.',
+        enforcement: 'Circular 230 §10.22 Diligence Requirements.',
+        escalation: '1. Letter 4843C (Outreach). 2. Focused Diligence Audit. 3. PTIN Suspension.'
     },
     { 
         level: 'Advisory', 
-        category: 'EITC Recertification', 
-        trigger: 'EITC claimed by taxpayer previously disallowed, Form 8862 not attached.', 
-        details: 'Advisory: Confirm if Form 8862 is required for this taxpayer. Attaching the form when required prevents automated processing delays and inquiries.',
-        rationale: 'Taxpayers with a prior EITC disallowance are placed in a special scrutiny category. Failure to attach the required recertification form (8862) is a simple administrative error that guarantees an audit.',
-        enforcement: 'IRS EITC Compliance Program; Automated processing flags.',
-        escalation: '1. Rejection of return or suspension of processing. 2. Math error notice to client. 3. Disallowance of the credit and potential 2-year ban on claiming EITC.'
+        category: 'Velocity Anomaly', 
+        trigger: 'Complex 1040 dwell-time < 45 minutes.', 
+        details: 'Advisory: Low substance work logged. Increase review time to align with MSA norms for complex filings.',
+        rationale: 'Extremely fast filing is used by the IRS as evidence of "Willful Recklessness" under §6694(b) rather than a simple mistake.',
+        enforcement: 'Circular 230 §10.22; Evidence of Reckless Disregard.',
+        escalation: '1. Behavioral Alert. 2. Mandatory Partner Review. 3. Dwell-Time audit during field inquiry.'
     },
 ];
 
@@ -63,41 +54,40 @@ const FlagTable: React.FC<{ flags: RedFlag[], title: string }> = ({ flags, title
     };
     return (
         <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
+            <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                <Target className="h-5 w-5 text-accent" />
+                {title}
+            </h2>
             <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
                     <thead className="text-xs text-gray-400 uppercase bg-gray-700/50">
                         <tr>
-                            <th scope="col" className="px-6 py-3 w-[120px]">Classification</th>
-                            <th scope="col" className="px-6 py-3 w-1/4">Category</th>
-                            <th scope="col" className="px-6 py-3">Details & Enforcement Analysis</th>
+                            <th scope="col" className="px-6 py-3 w-[120px]">Vector</th>
+                            <th scope="col" className="px-6 py-3 w-1/4">IRS Category</th>
+                            <th scope="col" className="px-6 py-3">Technical Trigger & Analysis</th>
                         </tr>
                     </thead>
                     <tbody>
                         {flags.map((flag, index) => (
-                            <tr key={index} className="border-b border-gray-700 align-top">
+                            <tr key={index} className="border-b border-gray-700 align-top hover:bg-gray-700/20 transition-colors">
                                 <td className="px-6 py-4">
-                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${levelColor(flag.level)}`}>
+                                    <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${levelColor(flag.level)}`}>
                                         {flag.level}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 font-medium text-gray-300">{flag.category}</td>
+                                <td className="px-6 py-4 font-bold text-gray-200">{flag.category}</td>
                                 <td className="px-6 py-4">
-                                    <p className="font-semibold text-gray-200">{flag.trigger}</p>
-                                    <p className="text-gray-400">{flag.details}</p>
+                                    <p className="font-semibold text-accent mb-1">{flag.trigger}</p>
+                                    <p className="text-gray-400 text-xs leading-relaxed mb-4">{flag.details}</p>
                                     
-                                    <div className="mt-4 border-t border-gray-700/50 pt-3 text-xs space-y-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-700/50 pt-4 text-[11px]">
                                         <div>
-                                            <h5 className="font-bold text-gray-300 uppercase tracking-wider">Rationale (Why Regulators Care)</h5>
-                                            <p className="text-gray-400 mt-1">{flag.rationale}</p>
+                                            <h5 className="font-black text-gray-400 uppercase tracking-tighter mb-1">Adversarial Rationale</h5>
+                                            <p className="text-gray-500">{flag.rationale}</p>
                                         </div>
                                          <div>
-                                            <h5 className="font-bold text-gray-300 uppercase tracking-wider">Enforcement Vector</h5>
-                                            <p className="text-gray-400 font-mono mt-1">{flag.enforcement}</p>
-                                        </div>
-                                         <div>
-                                            <h5 className="font-bold text-gray-300 uppercase tracking-wider">Typical Escalation Path</h5>
-                                            <p className="text-gray-400 mt-1">{flag.escalation}</p>
+                                            <h5 className="font-black text-gray-400 uppercase tracking-tighter mb-1">Enforcement Source</h5>
+                                            <p className="text-cyan-500/80 font-mono">{flag.enforcement}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -110,69 +100,30 @@ const FlagTable: React.FC<{ flags: RedFlag[], title: string }> = ({ flags, title
     );
 };
 
-const DAFRedFlags = {
-    critical: [
-        'DAF distribution to individual',
-        'Non-qualified grantee without ER',
-        'Related-party grant without board recusal',
-        'Prior taxable distribution pattern without remediation',
-        'Missing governing approvals (board or sponsor)',
-        'Sanctions / OFAC match',
-    ],
-    highRisk: [
-        'Repetitive donor-directed grants',
-        'Grant clustering to same recipient',
-        'Excess influence indicators',
-        'Missing or weak ER documentation',
-        'Compensation above peer benchmarks',
-        'Sponsor override frequency',
-    ],
-    advisory: [
-        'Elevated donor concentration',
-        'Fast grant velocity',
-        'Unusual mission drift',
-        'Minor documentation gaps',
-    ],
-};
-
-const FlagList: React.FC = () => (
-    <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-white mb-4">B. DAF / Nonprofit Red-Flag Taxonomy</h2>
-        <div className="space-y-6">
-            <div>
-                <h3 className="text-lg font-bold text-red-400">🔴 Critical (Block Execution)</h3>
-                <p className="text-sm text-gray-400 mb-2">System must fail-closed.</p>
-                <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    {DAFRedFlags.critical.map((item, i) => <li key={i}>{item}</li>)}
-                </ul>
-            </div>
-            <div>
-                <h3 className="text-lg font-bold text-yellow-400">🟠 High Risk (Mandatory Remediation)</h3>
-                <p className="text-sm text-gray-400 mb-2">Human review required.</p>
-                <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    {DAFRedFlags.highRisk.map((item, i) => <li key={i}>{item}</li>)}
-                </ul>
-            </div>
-            <div>
-                <h3 className="text-lg font-bold text-blue-400">🟡 Advisory (Monitor)</h3>
-                <p className="text-sm text-gray-400 mb-2">Track & explain.</p>
-                <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    {DAFRedFlags.advisory.map((item, i) => <li key={i}>{item}</li>)}
-                </ul>
-            </div>
-        </div>
-    </Card>
-);
-
-
 const RedFlagTaxonomy: React.FC = () => {
     return (
-        <div>
-            <SectionHeader title="Governance Taxonomy" subtitle="Pre-defined Categories for Policy Review" />
-            <div className="space-y-8">
-                <FlagTable flags={taxPreparerFlags} title="A. Tax Preparer Taxonomy" />
-                <FlagList />
-            </div>
+        <div className="space-y-8 pb-12">
+            <SectionHeader 
+                title="Governance Taxonomy: Regulatory Edition" 
+                subtitle="Machine-enforced triggers mapping factual anomalies to specific IRS enforcement project codes." 
+            />
+            <FlagTable flags={technicalTriggers} title="A. High-Fidelity Analytics Taxonomy" />
+            
+            <Card className="bg-accent/5 border border-accent/20 p-6 rounded-xl">
+                <div className="flex gap-4">
+                    <Scale className="h-6 w-6 text-accent shrink-0" />
+                    <div>
+                        <h3 className="font-bold text-white mb-2">The "Statutory Mirror" Protocol</h3>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            Magnus taxonomy does not evaluate "fraud." It evaluates "Mirror Alignment." 
+                            If the data suggests an economic pattern that mirrors known IRS audit triggers (e.g., 
+                            excessive loss claims in high-income MSAs), the system enforces a <span className="text-white italic">Hard Stop</span> 
+                            until contemporaneous evidence is attached. This protocol ensures that every file is "Audit-Ready" 
+                            before it is "Submission-Ready."
+                        </p>
+                    </div>
+                </div>
+            </Card>
         </div>
     );
 };

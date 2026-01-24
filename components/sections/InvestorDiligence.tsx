@@ -1,6 +1,4 @@
-
 import React from 'react';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 

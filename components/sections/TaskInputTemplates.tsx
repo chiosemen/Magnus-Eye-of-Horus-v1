@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-// FIX: Use lowercase filename for card component to resolve casing conflicts.
+// FIX: Use lowercase card.tsx to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
@@ -241,7 +240,7 @@ const TaskInputTemplates: React.FC = () => {
             <SectionHeader title="Canonical Task-Input Templates" subtitle="The Grandmaster's Move Library for Directing the System" />
 
             <Card className="mb-8 bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                <p className="text-gray-300">These templates are the structured, safe, and exclusive commands the human operator (the "Grandmaster") uses to direct the Eye of Horus system. They assume the Universal Mega-Prompt (the "Constitution") is already loaded. Using these templates ensures that every interaction is constrained by doctrine, preventing unsafe or out-of-scope requests.</p>
+                <p className="text-gray-300">These templates are the structured, safe, and exclusive commands the human operator (the "Grandmaster") uses to direct the Eye of Horus system. They ensure that every interaction is constrained by doctrine, preventing unsafe or out-of-scope requests.</p>
                 <div className="mt-4 flex space-x-2">
                     <FilterButton active={activeRole === 'all'} onClick={() => setActiveRole('all')}>All Presets</FilterButton>
                     <FilterButton active={activeRole === 'operator'} onClick={() => setActiveRole('operator')}>Operator</FilterButton>
