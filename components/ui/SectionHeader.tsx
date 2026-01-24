@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface SectionHeaderProps {
@@ -7,9 +6,13 @@ interface SectionHeaderProps {
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle }) => (
-    <div className="mb-8 border-b border-gray-700/50 pb-4">
-        <h1 className="text-3xl font-bold text-white">{title}</h1>
-        <p className="text-md text-gray-400 mt-1">{subtitle}</p>
+    <div className="mb-10 border-b border-white/5 pb-6">
+        <h1 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+            {title}
+        </h1>
+        <p className="mt-2 text-xs font-black uppercase tracking-[0.15em] text-muted-foreground opacity-70">
+            {subtitle}
+        </p>
     </div>
 );
 

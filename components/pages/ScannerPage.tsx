@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
 import { Button } from '../ui/button.tsx';
 import { Upload, FileText, Database, Fingerprint, Zap, Gauge, Binary, BarChart3, Activity } from 'lucide-react';
 import ToggleSwitch from '../ui/ToggleSwitch.tsx';

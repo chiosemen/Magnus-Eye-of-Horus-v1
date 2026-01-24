@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 const Toggle: React.FC<{ label: string; description: string; active?: boolean }> = ({ label, description, active=false }) => (
@@ -78,7 +78,7 @@ const UIControlPlane: React.FC = () => {
                     
                     <div className="border border-gray-700 rounded-lg p-6 bg-gray-900/50">
                         <h3 className="text-lg font-bold text-white">Board Risk Scorecard: DAF Account — Q2 Review</h3>
-                        <p className="text-lg font-bold text-yellow-400 mb-4">Overall Risk Posture: 🟡 Moderate, Controlled</p>
+                        <p className="text-lg font-bold text-yellow-400 mb-4">Overall Risk Posture: Yellow Moderate, Controlled</p>
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">
                                 <tbody>

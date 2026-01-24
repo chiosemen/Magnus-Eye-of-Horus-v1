@@ -1,8 +1,6 @@
-
 import React from 'react';
-// FIX: Use lowercase card.tsx with explicit extension to resolve casing conflict.
-import { Card, CardContent } from "./ui/card.tsx";
-// FIX: Use explicit extension for consistency.
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card, CardContent } from "./ui/Card.tsx";
 import { Button } from "./ui/button.tsx";
 
 export function BlockedBanner({

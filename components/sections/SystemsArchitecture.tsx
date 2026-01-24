@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 const SystemsArchitecture: React.FC = () => {
@@ -9,18 +9,18 @@ const SystemsArchitecture: React.FC = () => {
 
     const agenticFlowDiagram = `
 flowchart TD
-    H[Human / Board / Compliance Officer ♔] -->|Define Objective| Q[Orchestrator ♛]
+    H[Human / Board / Compliance Officer King] -->|Define Objective| Q[Orchestrator Queen]
 
-    Q --> N[Explorer ♞]
-    Q --> L[Librarian ♟️]
-    Q --> O[Oracle ♝]
+    Q --> N[Explorer Knight]
+    Q --> L[Librarian Pawn]
+    Q --> O[Oracle Bishop]
 
     N --> Q
     L --> Q
     O --> Q
 
-    Q --> F[Fixer ♜]
-    F --> D[Designer ♙→♛]
+    Q --> F[Fixer Rook]
+    F --> D[Designer Pawn to Queen]
 
     D --> Q
     Q -->|Remediation Plan| H

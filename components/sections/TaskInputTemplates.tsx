@@ -252,9 +252,9 @@ const TaskInputTemplates: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredTemplates.map(template => (
                     <Card key={template.id} className="flex flex-col bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                        <h3 className="font-bold text-white">{template.title}</h3>
+                        <h3 className="font-bold text-white tracking-tight">{template.title}</h3>
                         <p className="text-sm text-gray-400 mb-4">{template.description}</p>
-                        <pre className="bg-gray-900 text-sm text-cyan-300 p-4 rounded-lg overflow-x-auto h-full flex-grow">
+                        <pre className="bg-gray-950/80 text-sm text-cyan-300 p-4 rounded-lg overflow-x-auto h-full flex-grow font-mono selection:bg-cyan-500/30">
                             <code>{template.template.trim()}</code>
                         </pre>
                     </Card>

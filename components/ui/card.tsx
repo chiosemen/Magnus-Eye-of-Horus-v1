@@ -1,16 +1,22 @@
 import * as React from "react"
 import { cn } from "../../lib/utils.ts"
+import { motion } from "framer-motion"
+import { featureHover } from "../../lib/motion.ts"
 
-// card.tsx is the primary implementation file for the Card component.
-// Using lowercase to match the project's convention (badge.tsx, button.tsx).
+// Standard Card component with hover motion support - identical to Card.tsx to resolve casing conflicts
 export const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
+  <motion.div
     ref={ref}
+    whileHover={{
+      y: -4,
+      boxShadow: "0 0 0 1px rgba(212,175,55,0.35)",
+    }}
+    transition={featureHover}
     className={cn(
-      "rounded-2xl border bg-card text-card-foreground",
+      "rounded-2xl border border-white/5 bg-card text-card-foreground shadow-xl",
       className
     )}
     {...props}
@@ -37,7 +43,7 @@ export const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
+      "text-2xl font-bold leading-none tracking-tight text-white/90 font-sans",
       className
     )}
     {...props}
@@ -51,7 +57,7 @@ export const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-sm text-muted-foreground opacity-78 font-medium leading-relaxed", className)}
     {...props}
   />
 ))

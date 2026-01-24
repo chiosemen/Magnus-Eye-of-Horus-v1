@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { AlertTriangle } from "lucide-react";
-// FIX: Use lowercase card.tsx with explicit extension to resolve casing conflicts.
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card.tsx";
 
 export function SystemNotConfigured({ error }: { error: string }) {
   return (

@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { cn } from '../../lib/utils.ts';
+import { motion } from 'framer-motion';
 
 interface ToggleSwitchProps {
   label: string;
@@ -11,23 +11,25 @@ interface ToggleSwitchProps {
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ label, enabled, onToggle, disabled }) => {
   return (
-    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-      <span className={cn("text-sm font-medium text-foreground", disabled && "opacity-50")}>{label}</span>
+    <div className="flex items-center justify-between p-4 bg-[#131B2E]/50 rounded-xl border border-white/5">
+      <div className="flex flex-col">
+        <span className={cn("text-sm font-bold tracking-tight text-white/90", disabled && "opacity-50")}>{label}</span>
+      </div>
       <button
         type="button"
         disabled={disabled}
-        className={cn(
-          'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed',
-          enabled ? 'bg-accent' : 'bg-input'
-        )}
+        className="relative h-6 w-12 flex-shrink-0 cursor-pointer rounded-full p-0.5 outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 transition-colors"
         onClick={() => onToggle(!enabled)}
       >
-        <span
-          aria-hidden="true"
-          className={cn(
-            'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-background shadow ring-0 transition duration-200 ease-in-out',
-            enabled ? 'translate-x-5' : 'translate-x-0'
-          )}
+        <motion.div
+            className="absolute inset-0 rounded-full"
+            animate={{ backgroundColor: enabled ? "#D4AF37" : "#1F2937" }}
+            transition={{ duration: 0.2 }}
+        />
+        <motion.span
+          animate={{ x: enabled ? 24 : 2 }}
+          transition={{ duration: 0.2 }}
+          className="relative block h-5 w-5 rounded-full bg-background shadow-lg"
         />
       </button>
     </div>

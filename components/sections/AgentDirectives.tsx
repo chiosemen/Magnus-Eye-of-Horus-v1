@@ -26,56 +26,69 @@ const directives: Directive[] = [
     {
         agent: 'Fixer (Rook)',
         icon: '♜',
-        directive: 'Propose remedies ONLY from the pre-approved, version-controlled playbook. Do NOT invent new solutions.',
-        rationale: 'The Fixer maps a known problem (from the Oracle) to a known, pre-vetted solution. This prevents the system from suggesting novel or risky actions that have not undergone governance review, ensuring all proposed remediations are safe and policy-compliant.'
+        directive: 'Propose remediation based exclusively on approved playbooks. Do NOT invent novel remedies.',
+        rationale: 'The Fixer must not creatively problem-solve. It identifies which pre-vetted control applies to a detected risk. This prevents "remediation drift" and ensures that every fix is sanctioned by the organization\'s compliance leadership.'
+    },
+    {
+        agent: 'Librarian (Pawn)',
+        icon: '♟️',
+        directive: 'Fetch authoritative citations without summary. Do NOT offer legal advice or opinions.',
+        rationale: 'The Librarian is a retrieval engine. By stripping summaries and opinions, the system ensures findings are anchored in the primary source text, leaving judgment to the Human King.'
     },
     {
         agent: 'Designer (Pawn → Queen)',
-        icon: '♟️→👸',
-        directive: 'Perform adversarial reasoning as if preparing for hostile discovery. Assume all outputs will be subpoenaed.',
-        rationale: 'As the final human-facing layer, the Designer\'s prime directive is to assemble and frame all information in a way that is clear, unambiguous, and legally defensible. It must anticipate how its output could be misinterpreted years later and design against it, hardening the entire system at the presentation layer.'
-    },
+        icon: '👸',
+        directive: 'Translate findings into board-safe language. Do NOT use speculative or prosecutorial terms.',
+        rationale: 'The Designer ensures discovery-safe presentation. By mapping technical violations to governance outcomes, it prevents the creation of speculative records that could be hostilely interpreted during an inquiry.'
+    }
 ];
-
 
 const AgentDirectives: React.FC = () => {
     return (
-        <div>
-            <SectionHeader title="Agent Directives & Constraints" subtitle="The Immutable 'Prime Directives' Governing Agent Reasoning" />
-            <div className="space-y-8">
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <h2 className="text-xl font-bold text-white mb-4">I. Universal Prohibitions (System-Wide)</h2>
-                    <p className="text-gray-400 mb-6">These constraints are architecturally enforced on all agents, without exception. A violation of these rules constitutes a critical system failure and results in a fail-closed halt.</p>
-                    <ul className="list-disc list-inside space-y-3 text-red-400/90">
-                        <li><strong className="text-red-300">Propose Policy:</strong> No agent may create, modify, or suggest changes to the version-controlled governance policies. Policy is a human-authored input, never a system output.</li>
-                        <li><strong className="text-red-300">Escalate Risk:</strong> No agent may autonomously notify other users, administrators, or external parties of a finding. All escalation is a function of explicit human command via the UI.</li>
-                        <li><strong className="text-red-300">Bypass Human Approval:</strong> No agent may execute a material or irreversible action without passing through the final Human approval gate.</li>
-                        <li><strong className="text-red-300">Generate Enforcement Artifacts:</strong> No agent may generate documents or outputs framed for offensive, prosecutorial, or enforcement purposes. All outputs are structured for defensive remediation and diligence demonstration.</li>
-                    </ul>
-                     <div className="mt-6 border-t border-gray-700 pt-4">
-                        <h3 className="font-semibold text-gray-200">Out-of-Scope Deference Protocol</h3>
-                        <p className="text-gray-400 mt-2">If any agent is given a task that would require violating one of these prohibitions, its contract mandates that it <strong className="text-yellow-400">STOP</strong>, log a `SCOPE_VIOLATION` error, and defer the entire process back to the Orchestrator for safe termination. The system is designed to refuse unsafe commands.</p>
-                    </div>
-                </Card>
-
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <h2 className="text-xl font-bold text-white mb-4">II. Agent-Specific Prime Directives</h2>
-                    <p className="text-gray-400 mb-6">While the "Agent Contracts" define what each agent <em className="text-gray-200">does</em>, the "Prime Directives" define how each agent <em className="text-gray-200">thinks</em>. These directives resolve the "interpretation paradox," allowing the system to be both simple and sophisticated by assigning different reasoning modes to different agents.</p>
-                     <div className="space-y-6">
-                        {directives.map((d, i) => (
-                             <div key={i} className="flex items-start">
-                                <span className="text-4xl mr-4 mt-1">{d.icon}</span>
-                                <div>
-                                    <h3 className="text-lg font-bold text-white">{d.agent}</h3>
-                                    <p className="font-mono text-cyan-300 bg-cyan-900/30 p-2 rounded-md border border-cyan-500/30 my-2">"{d.directive}"</p>
-                                    <p className="text-gray-400 text-sm">{d.rationale}</p>
-                                </div>
+        <div className="space-y-6">
+            <SectionHeader 
+                title="Agent Directives & Constraints" 
+                subtitle="Machine-enforced prohibitions and behavioral mandates for the agent mesh." 
+            />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {directives.map((item, i) => (
+                    <Card key={i} className="bg-gray-800/40 border-gray-700/50 p-6 flex flex-col gap-4">
+                        <div className="flex items-center gap-4">
+                            <span className="text-4xl filter drop-shadow-[0_0_8px_rgba(245,158,11,0.2)]">{item.icon}</span>
+                            <h3 className="text-xl font-bold text-white tracking-tight">{item.agent}</h3>
+                        </div>
+                        
+                        <div className="space-y-3">
+                            <div>
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-accent mb-1">Canonical Directive</h4>
+                                <p className="text-sm text-gray-200 leading-relaxed font-medium italic">"{item.directive}"</p>
                             </div>
-                        ))}
-                    </div>
-                </Card>
-
+                            
+                            <div className="pt-3 border-t border-gray-700/50">
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Architectural Rationale</h4>
+                                <p className="text-xs text-gray-400 leading-relaxed">{item.rationale}</p>
+                            </div>
+                        </div>
+                    </Card>
+                ))}
             </div>
+
+            <Card className="bg-accent/5 border border-accent/20 p-6 mt-8">
+                <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                        <span className="text-accent font-bold">!</span>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-2">Constraint Enforcement</h3>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            These directives are not merely guidelines; they are architecturally enforced. The Orchestrator agent 
+                            verifies every agent response against these constraints. Any deviation results in an immediate 
+                            <span className="text-white font-bold italic"> fail-closed rejection</span> of the work unit.
+                        </p>
+                    </div>
+                </div>
+            </Card>
         </div>
     );
 };

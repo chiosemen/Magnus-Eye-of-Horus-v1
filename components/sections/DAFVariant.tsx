@@ -1,7 +1,8 @@
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
+import { ShieldAlert, Users, HeartHandshake, AlertCircle, FileText, Activity } from 'lucide-react';
 
 const DoctrineItem: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div>
@@ -12,9 +13,10 @@ const DoctrineItem: React.FC<{ title: string; children: React.ReactNode }> = ({ 
 
 const DAFVariant: React.FC = () => {
     return (
-        <div>
-            <SectionHeader title="Magnus Eye of Horus — DAF / Nonprofit Variant" subtitle="Executive Translation (Locked Doctrine)" />
-            <div className="space-y-8">
+        <div className="space-y-12 pb-12">
+            <SectionHeader title="Magnus Eye of Horus — DAF / Nonprofit Variant" subtitle="Executive Translation & UI Specific Adjustments" />
+            
+            <div className="grid grid-cols-1 gap-8">
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <DoctrineItem title="Purpose (DAF / Nonprofit Context)">
                         <p>Magnus Eye of Horus (Nonprofit Edition) is a pure remediation intelligence system designed to protect:</p>
@@ -25,106 +27,112 @@ const DAFVariant: React.FC = () => {
                             <li>Fiscal sponsors</li>
                             <li>Nonprofit service organizations</li>
                         </ul>
-                        <p>from data-driven IRS enforcement and state AG scrutiny by identifying, explaining, and neutralizing governance, excise-tax, and operational compliance risk before escalation occurs.</p>
-                        <p className="font-semibold text-gray-300">It is not:</p>
-                        <ul className="list-disc list-inside text-red-400/90">
-                            <li>A whistleblower platform</li>
-                            <li>An enforcement proxy</li>
-                            <li>A reporting or referral engine</li>
-                            <li>A regulator-facing system</li>
-                        </ul>
-                        <p>It is a defensive, fail-closed, human-governed compliance architecture.</p>
+                        <p className="mt-4">It swaps the tax-preparer's PTIN-focused analytics for board-governance and donor-influence monitoring, identifying risk under IRC §4966 and §4958 before they trigger excise tax events.</p>
+                        <p className="font-semibold text-gray-300 mt-2 italic">It is not a reporting engine; it is a defensive, fail-closed governance architecture.</p>
                     </DoctrineItem>
                 </Card>
+
+                {/* NEW: UI Specific Adjustments Section */}
+                <div className="space-y-6">
+                    <div className="flex items-center gap-3">
+                        <Activity className="h-6 w-6 text-accent" />
+                        <h2 className="text-2xl font-bold text-white uppercase tracking-tight">UI Specific Adjustments: DAF vs. Preparer Model</h2>
+                    </div>
+                    <p className="text-gray-400 text-sm max-w-3xl">The Nonprofit Variant replaces "Preparer Analytics" (DIF/RPM) with "Fiduciary Safeguards." Below are the core UI panels unique to this model.</p>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Excess Benefit Risk Panel (§4958) */}
+                        <Card className="bg-gray-900/60 border border-severity-high/30 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-severity-high" />
+                            <div className="p-6 border-b border-gray-800 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <Users className="h-5 w-5 text-severity-high" />
+                                    <h3 className="font-black text-sm uppercase tracking-widest text-white">Excess Benefit Risk Panel (§4958)</h3>
+                                </div>
+                                <span className="text-[10px] font-mono text-severity-high">Vector: DP-CONFLICT-4958</span>
+                            </div>
+                            <div className="p-6 space-y-6">
+                                <div className="space-y-4">
+                                    <div className="p-4 bg-severity-high/5 border border-severity-high/10 rounded-xl">
+                                        <p className="text-[10px] font-black text-severity-high uppercase mb-1">Signal: Related-Party Dominance</p>
+                                        <p className="text-xs text-gray-300">Grantee CEO [REDACTED] matches Disqualified Person (DP) list for Foundation Alpha. Family link identified.</p>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className="p-3 bg-black/40 rounded border border-gray-800">
+                                            <span className="text-[9px] font-bold text-muted-foreground uppercase">FMV Substantiation</span>
+                                            <div className="text-sm font-black text-red-400">MISSING</div>
+                                        </div>
+                                        <div className="p-3 bg-black/40 rounded border border-gray-800">
+                                            <span className="text-[9px] font-bold text-muted-foreground uppercase">Recusal Ledger</span>
+                                            <div className="text-sm font-black text-white">NOT LOGGED</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="pt-4 border-t border-gray-800">
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-2">Hard-Stop Logic</p>
+                                    <p className="text-xs text-gray-400 italic">"Board approval is gated until independent benchmark data for compensation is attached. No disbursement can proceed without a signed recusal attestation from the DP."</p>
+                                </div>
+                            </div>
+                        </Card>
+
+                        {/* Donor Influence Indicators */}
+                        <Card className="bg-gray-900/60 border border-accent/30 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-accent" />
+                            <div className="p-6 border-b border-gray-800 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <HeartHandshake className="h-5 w-5 text-accent" />
+                                    <h3 className="font-black text-sm uppercase tracking-widest text-white">Donor Influence Dashboard</h3>
+                                </div>
+                                <span className="text-[10px] font-mono text-accent">Vector: DAF-CONTROL-4966</span>
+                            </div>
+                            <div className="p-6 space-y-6">
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-end mb-1">
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase">Grant Concentration Score</span>
+                                        <span className="text-xs font-black text-accent">82/100</span>
+                                    </div>
+                                    <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
+                                        <div className="h-full bg-accent w-[82%]" />
+                                    </div>
+                                    <p className="text-[10px] text-gray-500 leading-relaxed">Alert: 90% of account distributions flow to single recipient over 24 months. Patterns suggest "Indirect Control" or "Earmarking."</p>
+                                </div>
+                                <div className="bg-accent/5 border border-accent/10 p-4 rounded-xl">
+                                    <p className="text-[10px] font-black text-accent uppercase mb-2">Lexicon Hits (SafeLexicon):</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-accent/20 text-[9px] font-mono text-gray-300">"pledge"</span>
+                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-accent/20 text-[9px] font-mono text-gray-300">"commitment"</span>
+                                        <span className="px-2 py-0.5 rounded bg-black/40 border border-accent/20 text-[9px] font-mono text-gray-300">"my behalf"</span>
+                                    </div>
+                                </div>
+                                <div className="pt-4 border-t border-gray-800">
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-2">Advisory Enforcement</p>
+                                    <p className="text-xs text-gray-400">"Mandatory cooling-off period of 14 days applied to this grant request to ensure independent sponsor review."</p>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
 
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-bold text-white mb-4">Non-Negotiable Doctrine (Nonprofit Edition)</h2>
                     <DoctrineItem title="1. Pure Remediation Only (Charity-Safe)">
-                        <p>Eye of Horus exists solely to:</p>
-                        <ul className="list-disc list-inside text-green-400/90">
-                            <li>Detect governance & tax risk</li>
-                            <li>Explain statutory exposure (IRC §4966, §4958, §4941, §4945)</li>
-                            <li>Guide corrective action</li>
-                            <li>Block unsafe distributions, approvals, or workflows</li>
-                        </ul>
-                        <p>It never:</p>
-                        <ul className="list-disc list-inside text-red-400/90">
-                            <li>Produces IRS filings (990, 990-PF, 1023, etc.)</li>
-                            <li>Generates enforcement narratives</li>
-                            <li>Incentivizes penalties, bounties, or referrals</li>
-                            <li>Produces whistleblower artifacts (Form 211, 14242)</li>
-                        </ul>
+                        <p>Eye of Horus exists solely to detect governance risk and explain statutory exposure. It never produces IRS filings, generates enforcement narratives, or incentives bounties.</p>
+                        <p className="text-severity-critical font-bold mt-2">Fail-closed is the default state for any §4966 taxable distribution risk.</p>
                     </DoctrineItem>
-                    <div className="border-t border-gray-700 mt-4 pt-4">
-                        <DoctrineItem title="2. Human-as-King Governance Model (Board-Aligned)">
-                             <ul className="list-disc list-inside text-gray-300">
-                                <li>Humans define objectives (Board, Compliance Officer, GC)</li>
-                                <li>AI executes bounded intelligence</li>
-                                <li>Humans approve all irreversible actions</li>
-                            </ul>
-                            <p className="font-semibold text-yellow-400">No autonomous disbursement blocking without review. No silent escalation. No self-authorizing agents. This mirrors fiduciary duty doctrine, not automation dogma.</p>
-                        </DoctrineItem>
-                    </div>
                 </Card>
 
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                     <DoctrineItem title="Nonprofit Threat Model (What Eye of Horus Is Built Against)">
-                        <p className="font-semibold text-gray-300">Enforcement Reality (Nonprofit):</p>
-                        <ul className="list-disc list-inside">
-                            <li>IRS & Treasury do not audit randomly.</li>
-                            <li>DAFs and sponsors are analyzed in aggregate.</li>
-                            <li>Pattern-based detection dominates: Distribution velocity, Donor influence patterns, Recipient clustering, Governance entropy.</li>
-                            <li>One flagged grant → portfolio expansion.</li>
-                        </ul>
-                         <p className="font-semibold text-gray-300 mt-4">Primary Enforcement Vectors:</p>
-                         <ul className="list-disc list-inside">
-                            <li><strong>DAF / Charity:</strong> IRC §4966 taxable distributions, "Individual benefit" grants, Missing sponsor equivalency determination, Repetitive donor-directed grants, Inadequate expenditure responsibility.</li>
-                            <li><strong>Governance:</strong> IRC §4958 excess benefit transactions, Board capture / related-party dominance, Missing conflict disclosures, Rubber-stamp approvals.</li>
-                        </ul>
-                    </DoctrineItem>
-                </Card>
-                
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <DoctrineItem title="Canonical Operational Flow (Unchanged)">
-                        <ol className="list-decimal list-inside">
-                            <li>Human defines objective</li>
-                            <li>Orchestrator decomposes</li>
-                            <li>Explorer maps risk terrain</li>
-                            <li>Librarian anchors authority</li>
-                            <li>Oracle classifies exposure</li>
-                            <li>Fixer enforces controls</li>
-                            <li>Designer presents warnings</li>
-                            <li>Orchestrator reconciles</li>
-                            <li>Human approves or redirects</li>
+                    <DoctrineItem title="Canonical Operational Flow (Nonprofit Adjustment)">
+                        <ol className="list-decimal list-inside space-y-1">
+                            <li>Human (Board) defines Objective</li>
+                            <li>Orchestrator Decomposes Tasks</li>
+                            <li>Explorer Scouts Grantee & Donor Links</li>
+                            <li>Librarian Anchors Citations (§4958/§4966)</li>
+                            <li>Oracle Classifies Governance Entropy</li>
+                            <li>Fixer Enforces Gating Controls</li>
+                            <li>Designer Presents Board-Safe UI</li>
+                            <li>Human (CCO) Approves/Redirects</li>
                         </ol>
-                        <p className="font-semibold text-yellow-400 mt-2">No step is skippable. No agent self-authorizes.</p>
-                    </DoctrineItem>
-                </Card>
-
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <DoctrineItem title="Legal & Ethical Guardrails (Nonprofit)">
-                         <ul className="list-disc list-inside text-red-400/90">
-                            <li>No whistleblower prep</li>
-                            <li>No regulator-facing artifacts</li>
-                            <li>No coercive monetization</li>
-                            <li>No donor intimidation</li>
-                            <li>No evidence taint</li>
-                            <li>No dual-use ambiguity</li>
-                        </ul>
-                        <p className="font-semibold text-gray-300 mt-2">Eye of Horus reduces liability; it never creates it.</p>
-                    </DoctrineItem>
-                </Card>
-
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <DoctrineItem title="Product Identity (Nonprofit Edition)">
-                        <p>Magnus Eye of Horus is:</p>
-                        <ul className="list-disc list-inside text-cyan-300">
-                            <li>A DAF sponsor defense system</li>
-                            <li>A governance foresight engine</li>
-                            <li>A remediation governor</li>
-                            <li>A human-controlled AI orchestra</li>
-                        </ul>
-                        <p className="font-semibold text-gray-300 mt-2">Its moat is explainable prevention, not prediction.</p>
                     </DoctrineItem>
                 </Card>
             </div>

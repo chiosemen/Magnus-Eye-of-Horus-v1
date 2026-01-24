@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
+import React, { useState, useEffect } from 'react';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
 import { Button } from '../ui/button.tsx';
 import { BlockedBanner } from '../BlockedBanner.tsx';
-import { isBlocked, canGenerateRemediationPack } from '../../lib/policy.ts';
 import { Case, RedFlag, ControlsState } from '../../lib/types.ts';
 import { band } from '../../lib/scoring.ts';
-import { AlertCircle, Clock, FileWarning, Fingerprint, ShieldAlert } from 'lucide-react';
+import { 
+    AlertCircle, 
+    Clock, 
+    FileWarning, 
+    Fingerprint, 
+    ShieldAlert, 
+    Activity, 
+    ChevronRight,
+    Search
+} from 'lucide-react';
 import { cn } from '../../lib/utils.ts';
+import { motion } from 'framer-motion';
+import { pageFade, sectionReveal } from '../../lib/motion.ts';
 
 const mockControls: ControlsState = {
     failClosedOnCritical: true,
@@ -24,7 +35,7 @@ const mockControls: ControlsState = {
         showRedFlagDetailToClients: true,
         showOnlyRemediationSteps: false
     }
-}
+};
 
 const mockRedFlags: RedFlag[] = [
     {
@@ -64,190 +75,258 @@ const mockCase: Case = {
 };
 
 const RedFlagCard: React.FC<{ flag: RedFlag }> = ({ flag }) => (
-    <Card className="p-4 border-border/50 bg-background/50 hover:border-accent/30 transition-all">
-        <div className="flex justify-between items-start mb-3">
-             <h4 className={cn(
-                 "font-bold text-sm tracking-tight uppercase",
-                 flag.severity === 'critical' ? 'text-severity-critical' : 'text-severity-high'
-             )}>
-                [{flag.severity}] {flag.title}
-            </h4>
+    <motion.div 
+        variants={sectionReveal}
+        initial="initial"
+        animate="visible"
+        className={cn(
+            "p-6 rounded-2xl border bg-[#0F1522]/60 backdrop-blur-sm transition-all shadow-xl",
+            flag.severity === 'critical' ? 'border-red-500/30 bg-red-500/5' : 'border-white/5'
+        )}
+    >
+        <div className="flex justify-between items-start mb-6">
+             <div>
+                <h4 className={cn(
+                    "text-sm font-black uppercase tracking-widest",
+                    flag.severity === 'critical' ? 'text-severity-critical' : 'text-accent'
+                )}>
+                    {flag.title}
+                </h4>
+                <p className="text-[10px] font-mono text-muted-foreground mt-1 uppercase tracking-tighter opacity-60">Vector: {flag.module}</p>
+             </div>
             <div className="flex gap-2">
                 {flag.module.startsWith('BEH-') && (
-                     <span className="text-[9px] font-black bg-accent/20 text-accent px-1.5 py-0.5 rounded border border-accent/20 uppercase tracking-widest flex items-center gap-1">
-                        <Fingerprint className="h-2.5 w-2.5" /> Behavioral Alert
+                     <span className="text-[9px] font-black bg-accent/20 text-accent px-2 py-0.5 rounded-full border border-accent/20 uppercase tracking-widest flex items-center gap-1">
+                        <Fingerprint className="h-2.5 w-2.5" /> Behavioral
                      </span>
                 )}
+                <span className={cn(
+                    "text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest border",
+                    flag.severity === 'critical' ? 'border-red-500/40 text-red-500' : 'border-accent/40 text-accent'
+                )}>
+                    {flag.severity}
+                </span>
             </div>
         </div>
         
-        <div className="space-y-3">
-            <div>
-                <p className="text-[11px] font-bold text-white uppercase opacity-40 mb-1">Finding Description</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{flag.why}</p>
+        <div className="space-y-6">
+            <div className="p-4 bg-black/40 rounded-xl border border-white/5">
+                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2 opacity-50">Analytical Finding</p>
+                <p className="text-sm text-gray-200 leading-relaxed font-medium italic">"{flag.why}"</p>
             </div>
 
             {flag.dwellTimeSeconds && (
-                <div className="p-2 rounded bg-accent/5 border border-accent/10 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-accent/5 border border-accent/10 flex items-center justify-between">
                      <div className="flex items-center gap-2">
-                        <Clock className="h-3 w-3 text-accent" />
-                        <span className="text-[10px] font-bold text-accent uppercase">Heuristic: Dwell Time Outlier</span>
+                        <Clock className="h-3.5 w-3.5 text-accent" />
+                        <span className="text-[10px] font-black text-accent uppercase tracking-widest">Heuristic: Dwell Outlier</span>
                      </div>
-                     <span className="text-[10px] font-mono text-white bg-accent/20 px-1.5 py-0.5 rounded">
-                        {flag.dwellTimeSeconds}s vs {flag.normativeDwellTime}s (Norm)
+                     <span className="text-[10px] font-mono text-white bg-accent/20 px-2 py-0.5 rounded-md">
+                        {flag.dwellTimeSeconds}s vs {flag.normativeDwellTime}s Baseline
                      </span>
                 </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
                 <div>
-                     <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Required Evidence</p>
-                     <ul className="text-[10px] space-y-1">
-                        {flag.evidenceRequired.map(e => <li key={e} className="flex items-center gap-1.5"><FileWarning className="h-2.5 w-2.5 text-accent" /> {e}</li>)}
+                     <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3 opacity-60">Required Evidence</p>
+                     <ul className="text-[11px] space-y-2 font-bold">
+                        {flag.evidenceRequired.map(e => <li key={e} className="flex items-center gap-2 text-white/80 uppercase tracking-tight"><FileWarning className="h-3 w-3 text-accent" /> {e}</li>)}
                      </ul>
                 </div>
                  <div>
-                     <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Remediation Path</p>
-                     <ul className="text-[10px] space-y-1">
-                        {flag.fixSteps.map(s => <li key={s} className="flex items-center gap-1.5 text-green-500/80">▸ {s}</li>)}
+                     <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-3 opacity-60">Remediation Path</p>
+                     <ul className="text-[11px] space-y-2 font-bold">
+                        {flag.fixSteps.map(s => <li key={s} className="flex items-center gap-2 text-green-500/90 uppercase tracking-tight">▸ {s}</li>)}
                      </ul>
                 </div>
             </div>
         </div>
         
-        <div className="mt-6 flex items-center gap-3">
-            <Button variant="outline" size="sm" className="h-8 text-[10px] font-bold uppercase border-border/50 bg-background hover:bg-accent/5">Upload Evidence</Button>
-            <Button variant="outline" size="sm" className="h-8 text-[10px] font-bold uppercase border-border/50 bg-background hover:bg-accent/5">Mark Resolved</Button>
+        <div className="mt-8 flex items-center gap-3">
+            <Button variant="outline" size="sm" className="h-9 px-6 text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10">Upload Substantiation</Button>
+            <Button variant="outline" size="sm" className="h-9 px-6 text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10">Resolve Vector</Button>
         </div>
-    </Card>
+    </motion.div>
 );
 
-const HoldToConfirm: React.FC = () => {
+const HoldToConfirm: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
     const [progress, setProgress] = useState(0);
     const [active, setActive] = useState(false);
     
-    React.useEffect(() => {
+    useEffect(() => {
         let interval: any;
         if (active && progress < 100) {
-            interval = setInterval(() => setProgress(p => Math.min(100, p + 2)), 20);
+            interval = setInterval(() => {
+                setProgress(prev => Math.min(prev + 5, 100));
+            }, 50);
         } else if (!active && progress > 0) {
-            interval = setInterval(() => setProgress(p => Math.max(0, p - 5)), 20);
+            setProgress(0);
         }
+
+        if (progress === 100) {
+            onConfirm();
+            setProgress(0);
+            setActive(false);
+        }
+
         return () => clearInterval(interval);
-    }, [active, progress]);
+    }, [active, progress, onConfirm]);
 
     return (
-        <div className="relative overflow-hidden rounded-xl border border-accent/30 bg-accent/5 p-4 text-center">
-            <p className="text-xs font-bold text-accent uppercase mb-3 tracking-tighter">Anti-Box-Checking Friction Active</p>
-            <button 
-                onMouseDown={() => setActive(true)}
-                onMouseUp={() => setActive(false)}
-                onMouseLeave={() => setActive(false)}
-                className="relative h-12 w-full max-w-xs mx-auto rounded-lg bg-accent text-accent-foreground font-black uppercase text-xs tracking-widest transition-all active:scale-95 overflow-hidden"
-            >
-                <div 
-                    className="absolute inset-0 bg-white/20 transition-all pointer-events-none" 
-                    style={{ width: `${progress}%` }} 
-                />
-                <span className="relative z-10">Hold to Attest Evidence Accuracy</span>
-            </button>
-            <p className="mt-2 text-[9px] text-muted-foreground italic">Required for critical findings. Prevents reflexive resolution.</p>
+        <div 
+            className="relative w-full h-14 bg-muted/20 rounded-xl border border-white/5 overflow-hidden cursor-pointer group"
+            onMouseDown={() => setActive(true)}
+            onMouseUp={() => setActive(false)}
+            onMouseLeave={() => setActive(false)}
+            onTouchStart={() => setActive(true)}
+            onTouchEnd={() => setActive(false)}
+        >
+            <motion.div 
+                className="absolute inset-y-0 left-0 bg-accent/20"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center gap-2">
+                <ShieldAlert className={cn("h-4 w-4 transition-colors", progress > 0 ? "text-accent" : "text-muted-foreground")} />
+                <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">
+                    {progress === 100 ? "Action Confirmed" : "Hold to Generate Remediation Pack"}
+                </span>
+            </div>
         </div>
     );
 };
 
 const CasesPage: React.FC = () => {
-    const caseIsBlocked = isBlocked(mockControls, mockCase.redFlags);
-    const canGenerate = canGenerateRemediationPack(mockControls, mockCase.redFlags);
-
-    const scoreColor = () => {
-        if (mockCase.band === "RED") return 'text-severity-critical';
-        if (mockCase.band === "ORANGE") return 'text-severity-high';
-        if (mockCase.band === "YELLOW") return 'text-severity-medium';
-        return 'text-green-500';
-    }
+    const handleConfirm = () => {
+        console.log("Remediation pack generating...");
+    };
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-start">
+        <motion.div 
+            variants={pageFade}
+            initial="initial"
+            animate="animate"
+            className="space-y-8"
+        >
+            <div className="flex items-end justify-between border-b border-white/5 pb-8">
                 <div>
-                    <div className="flex items-center gap-3">
-                        <h1 className="text-xl font-black tracking-tight text-white uppercase">Case #{mockCase.id}</h1>
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase px-2 py-0.5 border rounded">Owner: {mockCase.owner}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1 font-medium italic">
+                    <h1 className="text-3xl font-black tracking-tight text-white uppercase italic leading-none">Case {mockCase.id}</h1>
+                    <p className="text-xs text-muted-foreground mt-3 font-bold uppercase tracking-widest opacity-60">
                         {mockCase.sponsorName} ▸ {mockCase.fundName}
                     </p>
                 </div>
-                <div className="flex gap-2">
-                    <Button variant="outline" className="text-xs h-9 font-bold bg-background border-border/50">Request Evidence</Button>
-                    <Button disabled={!canGenerate} className="text-xs h-9 font-bold bg-white text-black hover:bg-white/90">Generate Remediation Pack</Button>
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Status:</span>
+                    <span className="text-xs font-black text-severity-critical bg-severity-critical/10 px-3 py-1 rounded-full border border-severity-critical/20">
+                        {mockCase.status}
+                    </span>
                 </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-4">
-                <Card className="p-3 bg-card/30 border-border/50">
-                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Exposure Score</p>
-                    <p className={cn("text-2xl font-black", scoreColor())}>{mockCase.score}</p>
-                </Card>
-                <Card className="p-3 bg-card/30 border-border/50">
-                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Status</p>
-                    <p className="text-2xl font-black text-white">{mockCase.status}</p>
-                </Card>
-                <Card className="p-3 bg-card/30 border-border/50">
-                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Entropy Risk</p>
-                    <p className="text-2xl font-black text-accent">Elevated</p>
-                </Card>
-                <Card className="p-3 bg-card/30 border-border/50">
-                    <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">Portfolio Lock</p>
-                    <p className="text-2xl font-black text-green-500 flex items-center gap-2"><ShieldAlert className="h-5 w-5" /> Active</p>
-                </Card>
-            </div>
+            <BlockedBanner 
+                onRequestEvidence={() => {}}
+                onLeadershipReview={() => {}}
+            />
 
-            {caseIsBlocked && <BlockedBanner onRequestEvidence={() => {}} onLeadershipReview={() => {}} />}
-
-            <div className="grid gap-6 md:grid-cols-3">
-                <div className="md:col-span-2 space-y-4">
-                     <h2 className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <AlertCircle className="h-4 w-4 text-accent" />
-                        RED FLAGS ({mockCase.redFlags.length})
-                     </h2>
-                    {mockCase.redFlags.map(flag => <RedFlagCard key={flag.id} flag={flag} />)}
+            <div className="grid gap-8 lg:grid-cols-3">
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Active Red Flags ({mockCase.redFlags.length})</h2>
+                        <Button variant="ghost" className="text-[10px] font-black uppercase tracking-widest text-accent">Expand All</Button>
+                    </div>
+                    <div className="space-y-6">
+                        {mockCase.redFlags.map(flag => (
+                            <RedFlagCard key={flag.id} flag={flag} />
+                        ))}
+                    </div>
                 </div>
-                
-                <div className="space-y-4">
-                    <h2 className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <Fingerprint className="h-4 w-4 text-accent" />
-                        Behavioral Integrity
-                    </h2>
-                    <HoldToConfirm />
-                    
-                    <Card className="bg-card/40 border-border/50 p-4">
-                        <CardTitle className="text-[10px] font-black uppercase text-muted-foreground mb-4">Substance Audit (NLP)</CardTitle>
-                        <div className="space-y-4">
-                            <div>
-                                <div className="flex justify-between text-[10px] mb-1">
-                                    <span className="text-white font-bold uppercase">Evidence Density</span>
-                                    <span className="text-accent font-mono">32/100</span>
+
+                <div className="space-y-6">
+                    <Card className="bg-[#0F1522] border-white/5 lg:sticky lg:top-20">
+                        <CardHeader>
+                            <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                <Activity className="h-4 w-4 text-accent" />
+                                Governance Scorecard
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <div className="flex flex-col items-center justify-center py-8">
+                                <div className="relative flex items-center justify-center">
+                                    <svg className="h-32 w-32 -rotate-90 transform">
+                                        <circle
+                                            cx="64"
+                                            cy="64"
+                                            r="58"
+                                            stroke="currentColor"
+                                            strokeWidth="8"
+                                            fill="transparent"
+                                            className="text-white/5"
+                                        />
+                                        <motion.circle
+                                            cx="64"
+                                            cy="64"
+                                            r="58"
+                                            stroke="currentColor"
+                                            strokeWidth="8"
+                                            fill="transparent"
+                                            strokeDasharray="364.4"
+                                            initial={{ strokeDashoffset: 364.4 }}
+                                            animate={{ strokeDashoffset: 364.4 - (364.4 * mockCase.score) / 100 }}
+                                            transition={{ duration: 1, ease: "easeOut" }}
+                                            className="text-severity-critical"
+                                        />
+                                    </svg>
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                        <span className="text-4xl font-black text-white">{mockCase.score}</span>
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-50">Exposure</span>
+                                    </div>
                                 </div>
-                                <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
-                                    <div className="h-full bg-severity-high w-[32%]" />
-                                </div>
-                                <p className="text-[9px] text-muted-foreground mt-2 italic">Alert: Uploaded "Diligence_Memo.pdf" is 45 words. Threshold is 150.</p>
+                                <p className="mt-4 text-[10px] font-black uppercase tracking-[0.3em] text-severity-critical">Band: Critical Deviation</p>
                             </div>
-                            
-                            <div className="pt-4 border-t border-border/50">
-                                <p className="text-[10px] font-bold text-white uppercase mb-2">Independent Verification</p>
-                                <div className="flex flex-wrap gap-2">
-                                     <span className="px-1.5 py-0.5 rounded bg-green-500/10 text-green-500 text-[8px] font-bold border border-green-500/20 uppercase tracking-tighter">IRS Pub 78 ✅</span>
-                                     <span className="px-1.5 py-0.5 rounded bg-severity-critical/10 text-severity-critical text-[8px] font-bold border border-severity-critical/20 uppercase tracking-tighter">Donor Conflict ⚠️</span>
+
+                            <div className="space-y-4 pt-6 border-t border-white/5">
+                                <div className="flex justify-between items-center text-[11px] font-bold">
+                                    <span className="text-muted-foreground uppercase tracking-wider">Control Integrity</span>
+                                    <span className="text-green-500">99.8%</span>
+                                </div>
+                                <div className="flex justify-between items-center text-[11px] font-bold">
+                                    <span className="text-muted-foreground uppercase tracking-wider">Diligence Density</span>
+                                    <span className="text-yellow-400">Low (Scattered)</span>
+                                </div>
+                                <div className="flex justify-between items-center text-[11px] font-bold">
+                                    <span className="text-muted-foreground uppercase tracking-wider">Audit Probability</span>
+                                    <span className="text-severity-critical italic">Simulated DIF High</span>
                                 </div>
                             </div>
-                        </div>
+
+                            <div className="pt-6">
+                                <HoldToConfirm onConfirm={handleConfirm} />
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card className="bg-[#0F1522] border-white/5">
+                        <CardHeader>
+                            <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                                <Search className="h-4 w-4 text-accent" />
+                                Librarian Context
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <p className="text-[11px] text-gray-400 leading-relaxed italic">
+                                "The detected patterns correlate with §4966(c) regarding donor-advised distributions to non-qualified individuals. No Expenditure Responsibility (ER) records detected in system vault."
+                            </p>
+                            <Button variant="ghost" size="sm" className="w-full text-[10px] font-black uppercase tracking-widest text-accent flex items-center justify-between group">
+                                View Authority Citations
+                                <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                        </CardContent>
                     </Card>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

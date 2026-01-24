@@ -2,7 +2,7 @@ import React from 'react';
 // FIX: Use lowercase card.tsx to resolve casing conflicts.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
-import { ShieldAlert, Binary, Network, Coins, Zap, Activity, Filter, BarChart3 } from 'lucide-react';
+import { ShieldAlert, Binary, Network, Zap, Activity, Filter, BarChart3, AlertTriangle } from 'lucide-react';
 
 interface ThreatModel {
     id: string;
@@ -23,9 +23,9 @@ const threatModels: ThreatModel[] = [
         id: 'RPM-CLUSTER',
         tactic: 'Return Preparer Mapping (RPM) Cluster Aggregation',
         icon: <Binary className="h-6 w-6 text-accent" />,
-        description: 'The IRS Return Preparer Office (RPO) uses the RPM system to visualize data-links between PTINs, EFINs, and physical MSAs. They calculate a "Weighted Error Density" across your entire firm portfolio.',
-        irsLogic: 'The RPM algorithm looks for "Ghost Preparers" (un-enrolled signers) and EFIN-PTIN mismatches. A 12% deviation in refundable credit claims compared to firm historicals triggers a firm-wide "Conduct Review" (Project 4843).',
-        countermeasure: 'Magnus simulates RPM aggregation in the Vault. We calculate firm-wide "Diligence Scorecards" daily. If any specific PTIN exceeds an 8% deviation fromfirm-wide normative data, the Fixer gates new e-filing for that PTIN until a cross-portfolio internal sample is cleared.',
+        description: 'The IRS RPO uses the RPM system to visualize hidden data-links between PTINs, EFINs, and physical addresses. They calculate a "Weighted Error Density" across your entire firm portfolio, looking for "Ghost Preparers" or un-enrolled signers.',
+        irsLogic: 'The RPM algorithm flags EFIN-PTIN mismatches. A 12% deviation in refundable credit density compared to the firm historical baseline triggers an immediate "Conduct Review" (Project 4843) expansion.',
+        countermeasure: 'Magnus simulates RPM aggregation in the Vault. We calculate firm-wide "Diligence Scorecards" daily. If any specific PTIN exceeds an 8% deviation from internal normative data, the Fixer gates new e-filing until a cross-portfolio sample review is cleared.',
         ui_warning: {
             title: 'Critical Aggregate Trigger: PTIN Cluster Density',
             text: 'Systemic pattern detected: PTIN [REDACTED] exhibits a 14% deviation in Schedule C "COGS-to-Revenue" ratios vs firm norm. RPM profile flagged as an RPO Conduct Project target.',
@@ -34,14 +34,14 @@ const threatModels: ThreatModel[] = [
     },
     {
         id: 'DIF-WEIGHTING',
-        tactic: 'DIF (Discriminant Function) Score Simulation',
+        tactic: 'DIF (Discriminant Function) Score Weighting',
         icon: <BarChart3 className="h-6 w-6 text-accent" />,
-        description: 'The IRS assigns a secret DIF score to every return based on field weighting and statistical outliers. High-DIF returns are automatically prioritized for Examination selection.',
-        irsLogic: 'Weighted fields include high-ratio itemized deductions, "Round Number" entries on Schedule C, and ACTC claims with zero self-employment income. The engine is non-linear and searches for multi-field inconsistencies.',
-        countermeasure: 'Magnus runs a "Simulated DIF" agent. It calculates weights for every return based on the NRP (National Research Program) benchmarks. Returns exceeding the 95th percentile trigger "Mandatory Substance Substantiation" (Hold-to-Confirm) to ensure proof density exists for an inevitable inquiry.',
+        description: 'The IRS assigns a secret DIF score to every return. High-DIF returns are prioritized for Examination selection. Weights are derived from the NRP (National Research Program) intensive audits.',
+        irsLogic: 'Weighted fields include "Round Number" entries on Schedule C, ACTC claims with zero self-employment income, and EITC claims with "Schedule C Income" that exactly hits the credit plateau. Multi-field inconsistencies are multiplicative.',
+        countermeasure: 'Magnus runs a "Simulated DIF" agent. It calculates weights for every return based on current NRP benchmarks. Returns exceeding the 95th percentile trigger "Mandatory Substance Substantiation" (Hold-to-Confirm) to ensure proof density exists for the inevitable inquiry.',
         ui_warning: {
             title: 'Critical: High-DIF Weighted Anomaly',
-            text: 'Return exceeds 98th percentile of Simulated DIF weights for itemized deductions. 82% probability of Selection. Action Gated: Documentation of substantive authority required.',
+            text: 'Return exceeds 98th percentile of Simulated DIF weights for itemized deductions. 82% probability of Selection. Action Gated: Contemporaneous documentation of authority required.',
             code: 'DIF-SIM-ALPHA-98'
         },
     },
@@ -49,26 +49,26 @@ const threatModels: ThreatModel[] = [
         id: 'MSA-PEER-NORM',
         tactic: 'Geographic MSA Peer Norming (Z-Score Model)',
         icon: <Zap className="h-6 w-6 text-accent" />,
-        description: 'IRS analytics compare firm-wide claims for refundable credits (EITC/ACTC) against all other preparers in your Metropolitan Statistical Area (MSA).',
-        irsLogic: 'Outliers are determined via Z-Score. If your firm’s average EITC claim is 2.2 standard deviations above the local MSA mean, you are automatically select for Program 4843 "Preparer Outreach" (Letter 4843C).',
-        countermeasure: 'The Explorer agent maintains a "Jurisdictional Peer Norm Index." It calculates a Z-score for every return. Returns with Z > 1.8 trigger a "Behavioral Integrity Checklist" to ensure the preparer can defend the claim against peer norms during an audit.',
+        description: 'IRS analytics compare your firm-wide claims for refundable credits (EITC/ACTC/HCTC) against all other preparers in your Metropolitan Statistical Area (MSA).',
+        irsLogic: 'Outliers are determined via Z-Score. If your firm’s average EITC claim is 2.0 standard deviations above the local MSA mean, you are automatically flagged for Program 4843 "Preparer Outreach" (Letter 4843C).',
+        countermeasure: 'The Explorer agent maintains a "Jurisdictional Peer Norm Index." It calculates a Z-score for every return. Returns with Z > 1.8 trigger a "Behavioral Integrity Checklist" to ensure the preparer can defend the claim against local economic norms.',
         ui_warning: {
-            title: 'Advisory: MSA Peer Norm Deviation (Z-Score > 2.0)',
+            title: 'Advisory: MSA Peer Norm Deviation (Z > 2.0)',
             text: 'This return exceeds the jurisdictional norm for EITC claims by 2.4 standard deviations. MSA peer group selection for Letter 4843C is highly probable.',
             code: 'IRS-MSA-NORM-Z2'
         },
     },
     {
-        id: 'CONDUCT-EXPANSION',
-        tactic: 'Network Inquiry Expansion (Project 4843)',
-        icon: <Network className="h-6 w-6 text-accent" />,
-        description: 'The IRS audits 3-5 high-DIF clients. If "Lack of Diligence" (Circular 230 §10.22) is confirmed in >50% of the sample, the project expands to your entire client list for the prior 3 years.',
-        irsLogic: 'Under IRC §6695(g), silence in the file is treated as evidence of disregard. The expansion logic is a "Network Infection" model where one failure "taints" the PTIN cluster.',
-        countermeasure: 'Magnus enforces a "Diligence Firewall." Every return must have a completed Magnus "Diligence Interview Log." By maximizing contemporaneous proof, we prevent a client audit from providing the "cause" for a firm-level expansion project.',
+        id: 'PENALTY-STACKING',
+        tactic: 'Statutory Penalty Stacking Framework',
+        icon: <Activity className="h-6 w-6 text-accent" />,
+        description: 'IRS Counsel targets "Penalty Density" where multiple preparer penalties can be assessed on a single filing to force a settlement.',
+        irsLogic: 'Stacking logic: §6695(g) (Diligence Failure: $600+) + §6694(a) (Unreasonable Position: $1,000+) + §6694(b) (Willful/Reckless: $5,000+). One file can generate $6,600+ in firm liability.',
+        countermeasure: 'The Scoring Engine calculates "Maximum Statutory Exposure" for every red flag. The Fixer enforces remediation that clears *all* stacked levels, prioritizing §6695(g) documentation as the primary defensive firewall.',
         ui_warning: {
-            title: 'Expansion Risk: Diligence Loop Incomplete',
-            text: 'AUR flag detected on linked client. Without a Magnus-signed "Diligence Certification" on file, this client inquiry has a high probability of firm-wide expansion per §6695(g) protocols.',
-            code: 'IRC-6695G-PROXIMITY'
+            title: 'Penalty Density Alert: Stacked Liability Risk',
+            text: 'Unresolved §6695(g) diligence gaps identified. Combined statutory exposure for this filing exceeds $6,000. Remediation pack generation disabled.',
+            code: 'IRC-STACK-6694-6695'
         },
     },
     {
@@ -120,7 +120,7 @@ const AdversaryModeling: React.FC = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-severity-high mb-3 flex items-center gap-2">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-severity-high animate-pulse" />
+                                        <AlertTriangle className="h-3 w-3" />
                                         IRS Engine Logic (Hostile Intent)
                                     </h4>
                                     <div className="bg-black/40 p-4 rounded-xl border border-severity-high/10">

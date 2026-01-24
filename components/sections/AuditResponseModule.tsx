@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 const ModuleSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
@@ -81,7 +81,7 @@ const AuditResponseModule: React.FC = () => {
                         <h3 className="text-lg font-semibold text-white mb-2">What It NEVER Says</h3>
                         <ul className="list-disc list-inside space-y-2 text-red-400/90">
                            <li><strong className="text-red-300">"Complies with IRS rules"</strong> (states process alignment, not legal conclusion)</li>
-                           <li><strong className="text-red-300">"No violation occurred"</strong> (avoids legal determination)</li>
+                           <li><strong className="text-red-300">No violation occurred</strong> (avoids legal determination)</li>
                            <li><strong className="text-red-300">"We believed" or "In our opinion"</strong> (avoids subjective intent)</li>
                         </ul>
                     </div>

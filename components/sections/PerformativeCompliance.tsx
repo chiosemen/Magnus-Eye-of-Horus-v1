@@ -1,4 +1,6 @@
+
 import React from 'react';
+// FIX: Use lowercase card.tsx to resolve casing conflicts and stabilize build consistency.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 

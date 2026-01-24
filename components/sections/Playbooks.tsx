@@ -1,4 +1,6 @@
+
 import React from 'react';
+// FIX: Use lowercase card.tsx to resolve casing conflicts and synchronize with the rest of the application.
 import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
@@ -97,7 +99,7 @@ const playbooks: Playbook[] = [
 ];
 
 const PlaybookCard: React.FC<{ playbook: Playbook }> = ({ playbook }) => (
-    <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
+    <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6 mb-6">
         <h2 className="text-xl font-bold text-white mb-4">{playbook.title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
@@ -141,12 +143,11 @@ const PlaybookCard: React.FC<{ playbook: Playbook }> = ({ playbook }) => (
     </Card>
 );
 
-
 const Playbooks: React.FC = () => {
     return (
         <div>
             <SectionHeader title="DAF-Specific Remediation Playbooks" subtitle="Pure remediation, zero enforcement language" />
-            <div className="space-y-8">
+            <div className="space-y-2">
                 {playbooks.map((playbook, index) => (
                     <PlaybookCard key={index} playbook={playbook} />
                 ))}
