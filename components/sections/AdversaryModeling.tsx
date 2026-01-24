@@ -1,6 +1,6 @@
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 import { ShieldAlert, Binary, Network, Zap, Activity, Filter, BarChart3, AlertTriangle } from 'lucide-react';
 
@@ -76,7 +76,7 @@ const threatModels: ThreatModel[] = [
         tactic: 'Filing Velocity & Dwell-Time Analytics',
         icon: <Activity className="h-6 w-6 text-accent" />,
         description: 'The IRS RPO tracks the delta between return creation and e-file submission. Extremely low dwell-times suggest "Robo-filing" or performative compliance.',
-        irsLogic: 'A complex 1040 with Schedule C and EITC completed in under 45 minutes is flagged as a behavioral outlier. The IRS uses this as evidence of "Willful Recklessness" to escalate §6694(a) penalties to §6694(b).',
+        irsLogic: 'A complex 1040 with Schedule C and EITC completed in under 45 minutes is flagged as a behavioral outlier. The IRS use this as evidence of "Willful Recklessness" to escalate §6694(a) penalties to §6694(b).',
         countermeasure: 'Behavioral Integrity Engine monitors dwell-time per task. Sub-normative velocity triggers "Mandatory Friction Gates." The user must hold-to-confirm substance before the "Filing Remediation Pack" can be generated.',
         ui_warning: {
             title: 'Behavioral Alert: Filing Velocity Anomaly',

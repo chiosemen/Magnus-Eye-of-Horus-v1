@@ -1,7 +1,6 @@
-
 import React from 'react';
-// FIX: Use lowercase card.tsx to resolve casing conflicts and synchronize with the rest of the application.
-import { Card } from '../ui/card.tsx';
+// FIX: Standardize casing to Card.tsx to resolve compiler conflict.
+import { Card } from '../ui/Card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 interface Playbook {
