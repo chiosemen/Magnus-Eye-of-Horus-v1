@@ -1,8 +1,8 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
-import { ShieldAlert, Binary, Network, Zap, Activity, Filter, BarChart3, AlertTriangle } from 'lucide-react';
+import { ShieldAlert, Binary, Zap, Activity, Filter, BarChart3, AlertTriangle } from 'lucide-react';
 
 interface ThreatModel {
     id: string;

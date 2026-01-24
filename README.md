@@ -15,6 +15,17 @@ View your app in AI Studio: https://ai.studio/apps/drive/19pb65Yg4HaOORxDCmWghNi
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+
+2. Run the secure backend (required before running the frontend):
+   ```
+   cd server
+   npm install
+   cp .env.example .env
+   # Set SERVER_GEMINI_API_KEY and SERVER_JWT_SECRET in server/.env
+   npm run dev
+   ```
+
+3. Run the app (frontend):
    `npm run dev`
+
+Note: **Do not** place provider API keys in the frontend. Keep them only in server/.env.

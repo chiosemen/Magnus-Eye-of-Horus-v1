@@ -1,8 +1,8 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
-import { Type, AlertTriangle, Scale, Target } from 'lucide-react';
+import { Scale, Target } from 'lucide-react';
 import type { RedFlag } from '../../types.ts';
 
 const technicalTriggers: RedFlag[] = [

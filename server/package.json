@@ -1,0 +1,26 @@
+{
+  "name": "magnus-eye-of-horus-server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "node ./dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "lint": "echo \"Add lint rules\""
+  },
+  "dependencies": {
+    "fastify": "^4.22.0",
+    "@fastify/jwt": "^6.0.0",
+    "@fastify/rate-limit": "^7.0.0",
+    "node-fetch": "^3.3.2",
+    "@fastify/cors": "^8.0.0",
+    "openid-client": "^6.0.0",
+    "fastify-cookie": "^8.0.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "~5.8.2",
+    "@types/node": "^22.14.0"
+  }
+}

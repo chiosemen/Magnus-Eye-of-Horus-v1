@@ -1,8 +1,8 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
-import { ShieldAlert, Users, HeartHandshake, AlertCircle, FileText, Activity } from 'lucide-react';
+import { Users, HeartHandshake, Activity } from 'lucide-react';
 
 const DoctrineItem: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div>

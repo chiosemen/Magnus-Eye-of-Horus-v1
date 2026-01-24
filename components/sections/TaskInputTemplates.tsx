@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 type Role = 'all' | 'operator' | 'compliance' | 'board';

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 const SystemsArchitecture: React.FC = () => {

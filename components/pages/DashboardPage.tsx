@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { eyeFetch } from '../../lib/api.ts';
 import { SystemNotConfigured } from '../SystemNotConfigured.tsx';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card.tsx';
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/card.tsx';
 import { ArrowRight, ShieldCheck, Activity, Target, Zap, BarChart3 } from 'lucide-react';
 import { cn } from '../../lib/utils.ts';
 import { motion } from 'framer-motion';

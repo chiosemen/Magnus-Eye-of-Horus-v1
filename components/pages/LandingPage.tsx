@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/button.tsx';
-import { Shield, Zap, BrainCircuit, Lock, ChevronRight } from 'lucide-react';
+import { Shield, Zap, BrainCircuit, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { heroEnter, meshIdle, sectionReveal } from '../../lib/motion.ts';
 

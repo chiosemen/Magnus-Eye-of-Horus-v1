@@ -1,6 +1,6 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
 
 const RedFlagsPage: React.FC = () => {
     return (

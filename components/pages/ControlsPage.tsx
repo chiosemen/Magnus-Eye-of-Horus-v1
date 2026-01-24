@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
 import ToggleSwitch from '../ui/ToggleSwitch.tsx';
 
 const ControlsPage: React.FC = () => {

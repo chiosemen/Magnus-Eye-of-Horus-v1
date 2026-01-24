@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SectionHeader from '../ui/SectionHeader.tsx';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 
 const OperationalFlow: React.FC = () => {
     const steps = [
