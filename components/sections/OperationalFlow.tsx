@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import SectionHeader from '../ui/SectionHeader';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
+import SectionHeader from '../ui/SectionHeader.tsx';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
 
 const OperationalFlow: React.FC = () => {
     const steps = [
@@ -49,7 +49,7 @@ graph TD
     const activeStep = steps[currentStepIndex];
 
     return (
-        <div>
+        <div className="space-y-6">
             <SectionHeader title="Final Operational Flow" subtitle="The Canonical, Unskippable Sequence of Operations" />
             <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                 <div className="w-full overflow-x-auto p-4 flex justify-center items-center min-h-[300px]">

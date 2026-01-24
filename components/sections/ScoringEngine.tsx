@@ -1,15 +1,14 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const ScoringEngine: React.FC = () => {
     return (
         <div>
             <SectionHeader title="Governance Scoring Framework" subtitle="Framework for Non-Predictive Policy Adherence Assessment" />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="lg:col-span-2 bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">Scoring Principles (Nonprofit)</h2>
                     <ul className="list-disc list-inside space-y-2 text-gray-300">
@@ -21,7 +20,6 @@ const ScoringEngine: React.FC = () => {
                     </ul>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">I. Taxonomy Classification Weight</h2>
                     <p className="text-gray-400 mb-4">A static, categorical value assigned based on the Governance Taxonomy. This forms the base score.</p>
@@ -32,7 +30,6 @@ const ScoringEngine: React.FC = () => {
                     </ul>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">II. Structural Interlinkage Multiplier</h2>
                     <p className="text-gray-400 mb-4">A structural multiplier, not a statistical probability. It measures if a finding in one area structurally implicates another policy area (e.g., a self-dealing finding also implicates board governance).</p>
@@ -43,7 +40,6 @@ const ScoringEngine: React.FC = () => {
                     </ul>
                 </Card>
                 
-                 {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">III. Documentation Status Multiplier</h2>
                     <p className="text-gray-400 mb-4">A multiplier applied if the system notes that documentation required by policy for a specific check is missing or invalid.</p>
@@ -53,14 +49,12 @@ const ScoringEngine: React.FC = () => {
                     </ul>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">IV. Statutory Context Tag</h2>
                     <p className="text-gray-400 mb-4">An informational tag, not a score component. It provides the human operator with context about the statutory basis for a rule, but does not alter the internal score.</p>
                     <p className="text-sm text-cyan-300 font-mono bg-gray-900 p-2 rounded">Example Tag: "Statutory Basis: IRC §4958"</p>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="lg:col-span-2 bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">Scoring Formula & Explainability Requirement</h2>
                     <p className="text-gray-400 mb-4">The final score is a simple, auditable calculation used for internal prioritization only. The narrative explanation is the primary output for decision-making.</p>

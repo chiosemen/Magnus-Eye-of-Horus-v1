@@ -1,5 +1,5 @@
 
-import { getApiBaseUrl } from "./env";
+import { getApiBaseUrl } from "./env.ts";
 
 type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
 
@@ -12,11 +12,6 @@ export async function eyeFetch<T>(
   const base = getApiBaseUrl(); // throws -> fail closed
   const url = `${base}${path}`;
 
-  // This is a placeholder for the UI skeleton. In a real app, this would
-  // make a network request. For now, we simulate the fail-closed behavior
-  // by having getApiBaseUrl() throw, and we'll never successfully return data.
-  // If we ever remove the error from env.ts, this will return a mock response.
-
   console.log(`Simulating fetch to ${url}`);
   
   if(path.includes('/v1/dashboard/summary')) {
@@ -27,8 +22,6 @@ export async function eyeFetch<T>(
     } as T);
   }
 
-  // To properly test the fail-closed UI, the `getApiBaseUrl` function in `env.ts`
-  // will throw an error, so this part of the code will not be reached.
   const res = await fetch(url, {
     method,
     headers: {

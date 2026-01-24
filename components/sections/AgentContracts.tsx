@@ -1,228 +1,164 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
+import { ShieldCheck, ShieldAlert, Code2, UserCircle2 } from 'lucide-react';
 
-const CodeBlock: React.FC<{ title: string; children: string; lang?: string }> = ({ title, children, lang = 'typescript' }) => (
-    <div className="mb-6">
-        <h3 className="text-lg font-bold text-white mb-2 flex items-center">{title}</h3>
-        <pre className="bg-gray-900 text-sm text-cyan-300 p-4 rounded-lg overflow-x-auto border border-gray-700">
-            <code className={`language-${lang}`}>
-                {children.trim()}
-            </code>
-        </pre>
-    </div>
-);
-
-const agentContracts = {
-    core: `
-// agents/contract.ts
-
-export type AgentRole =
-  | "HUMAN"
-  | "ORCHESTRATOR"
-  | "EXPLORER"
-  | "LIBRARIAN"
-  | "ORACLE"
-  | "FIXER"
-  | "DESIGNER";
-
-export interface AgentContext {
-  objectiveId: string;
-  nonprofitEntityId: string;
-  jurisdiction: "IRS" | "STATE_AG";
-  constraints: string[];
+interface AgentSpec {
+    role: string;
+    icon: string;
+    description: string;
+    allowed: string[];
+    forbidden: string[];
+    code: string;
 }
 
-export interface AgentInput {
-  context: AgentContext;
-  payload: unknown;
-}
-
-export interface AgentOutput {
-  findings?: unknown;
-  recommendations?: unknown;
-  artifacts?: unknown;
-  requiresHumanApproval: boolean;
-}
-
-export interface AgentContract {
-  role: AgentRole;
-  allowedActions: string[];
-  forbiddenActions: string[];
-  execute(input: AgentInput): Promise<AgentOutput>;
-}
-    `,
-    human: `
-export const HumanAgent: AgentContract = {
-  role: "HUMAN",
-  allowedActions: [
-    "DEFINE_OBJECTIVE",
-    "APPROVE_REMEDIATION",
-    "REDIRECT_TASK",
-    "OVERRIDE_WITH_REASON"
-  ],
-  forbiddenActions: [
-    "AUTOMATED_EXECUTION"
-  ],
-  async execute(input) {
-    return {
-      requiresHumanApproval: false
-    };
-  }
-};
-    `,
-    orchestrator: `
-export const OrchestratorAgent: AgentContract = {
-  role: "ORCHESTRATOR",
-  allowedActions: [
-    "DECOMPOSE_TASK",
-    "SEQUENCE_AGENTS",
-    "RECONCILE_OUTPUTS"
-  ],
-  forbiddenActions: [
-    "FINALIZE_DECISION",
-    "BYPASS_POLICY"
-  ],
-  async execute(input) {
-    return {
-      findings: "Task graph created",
-      requiresHumanApproval: false
-    };
-  }
-};
-    `,
-    explorer: `
-export const ExplorerAgent: AgentContract = {
-  role: "EXPLORER",
-  allowedActions: [
-    "PATTERN_DISCOVERY",
-    "ANOMALY_DETECTION"
-  ],
-  forbiddenActions: [
-    "RISK_CLASSIFICATION",
-    "CONTROL_CHANGES"
-  ],
-  async execute(input) {
-    return {
-      findings: "Detected grant clustering and donor influence signals",
-      requiresHumanApproval: false
-    };
-  }
-};
-    `,
-    librarian: `
-export const LibrarianAgent: AgentContract = {
-  role: "LIBRARIAN",
-  allowedActions: [
-    "FETCH_STATUTES",
-    "FETCH_GUIDANCE",
-    "CITE_AUTHORITY"
-  ],
-  forbiddenActions: [
-    "INTERPRET_LAW",
-    "ASSESS_RISK"
-  ],
-  async execute(input) {
-    return {
-      artifacts: ["IRC §4966", "Treas. Reg. 53.4966"],
-      requiresHumanApproval: false
-    };
-  }
-};
-    `,
-    oracle: `
-export const OracleAgent: AgentContract = {
-  role: "ORACLE",
-  allowedActions: [
-    "CLASSIFY_RISK",
-    "MAP_PENALTIES",
-    "ASSESS_EXPANSION_PROBABILITY"
-  ],
-  forbiddenActions: [
-    "REMEDIATION_EXECUTION",
-    "USER_COMMUNICATION"
-  ],
-  async execute(input) {
-    return {
-      recommendations: "High likelihood of §4966 exposure if unremediated",
-      requiresHumanApproval: true
-    };
-  }
-};
-    `,
-    fixer: `
-export const FixerAgent: AgentContract = {
-  role: "FIXER",
-  allowedActions: [
-    "APPLY_CONTROLS",
-    "UPDATE_SCORING",
-    "ENFORCE_BLOCKS"
-  ],
-  forbiddenActions: [
-    "REMOVE_GUARDRAILS",
-    "OVERRIDE_HUMAN"
-  ],
-  async execute(input) {
-    return {
-      artifacts: "Controls enforced; unsafe grants blocked",
-      requiresHumanApproval: true
-    };
-  }
-};
-    `,
-    designer: `
-export const DesignerAgent: AgentContract = {
-  role: "DESIGNER",
-  allowedActions: [
-    "PRESENT_WARNINGS",
-    "GENERATE_EXPLAINABLE_UI"
-  ],
-  forbiddenActions: [
-    "HIDE_RISK",
-    "DARK_PATTERNS"
-  ],
-  async execute(input) {
-    return {
-      artifacts: "Board-facing remediation dashboard updated",
-      requiresHumanApproval: false
-    };
-  }
-};
-    `,
-    invariants: `
-export const EYE_OF_HORUS_INVARIANTS = [
-  "No agent may generate IRS submissions",
-  "No agent may escalate externally",
-  "Critical flags must block execution",
-  "All irreversible actions require human approval",
-  "All overrides require reason + expiry",
-  "Fail-closed is default"
+const AGENTS: AgentSpec[] = [
+    {
+        role: "HUMAN (King ♔)",
+        icon: "♔",
+        description: "The sole source of strategic intent and final auditable authority.",
+        allowed: ["Define Objective", "Approve Remediation", "Redirect Task", "Override with Reason"],
+        forbidden: ["Automated Execution", "Anonymous Decisions", "Policy Modification"],
+        code: `export const HumanAgent: AgentContract = {\n  role: "HUMAN",\n  allowedActions: ["DEFINE_OBJECTIVE", "APPROVE_REMEDIATION", "REDIRECT_TASK"],\n  forbiddenActions: ["AUTOMATED_EXECUTION"]\n};`
+    },
+    {
+        role: "ORCHESTRATOR (Queen ♛)",
+        icon: "♛",
+        description: "System brain responsible for task decomposition, sequencing, and result reconciliation.",
+        allowed: ["Decompose Task", "Sequence Agents", "Reconcile Outputs", "Enforce Invariants"],
+        forbidden: ["Finalize Decision", "Bypass Policy", "Modify Constitution"],
+        code: `export const OrchestratorAgent: AgentContract = {\n  role: "ORCHESTRATOR",\n  allowedActions: ["DECOMPOSE_TASK", "SEQUENCE_AGENTS", "ENFORCE_INVARIANTS"],\n  forbiddenActions: ["FINALIZE_DECISION"]\n};`
+    },
+    {
+        role: "EXPLORER (Knight ♞)",
+        icon: "♞",
+        description: "Data scout that performs pattern discovery and anomaly detection without interpretation.",
+        allowed: ["Pattern Discovery", "Anomaly Detection", "Raw Data Retrieval"],
+        forbidden: ["Risk Classification", "Legal Interpretation", "Intent Assessment"],
+        code: `// Enforced via Invariant Check\nif (task.requiresInterpretation) throw new BoundaryViolation("Explorer cannot interpret.");`
+    },
+    {
+        role: "LIBRARIAN (Pawn ♟️)",
+        icon: "♟️",
+        description: "Knowledge steward that fetches statutes and anchors findings to authoritative text.",
+        allowed: ["Fetch Statutes", "Fetch Guidance", "Cite Authority"],
+        forbidden: ["Interpret Law", "Assess Risk", "Create New Rules"],
+        code: `export const LibrarianAgent: AgentContract = {\n  role: "LIBRARIAN",\n  allowedActions: ["FETCH_STATUTES", "CITE_AUTHORITY"]\n};`
+    },
+    {
+        role: "ORACLE (Bishop ♝)",
+        icon: "♝",
+        description: "Deterministic logic engine that classifies risk and maps penalties based on static taxonomy.",
+        allowed: ["Classify Risk", "Map Penalties", "Structural Analysis"],
+        forbidden: ["Remediation Execution", "User Communication", "Confidence Scoring"],
+        code: `// Oracle must return Boolean or Enum. No percentages.\nconst classification = Taxonomy.match(facts);`
+    },
+    {
+        role: "FIXER (Rook ♜)",
+        icon: "♜",
+        description: "Enforcement agent that identifies and applies pre-approved remediation controls.",
+        allowed: ["Apply Controls", "Update Scoring", "Enforce Blocks"],
+        forbidden: ["Remove Guardrails", "Override Human", "Invent New Remedies"],
+        code: `// Must match Playbook hash\nif (!Playbook.v1.includes(action)) throw new SecurityException("Novel remedy forbidden.");`
+    },
+    {
+        role: "DESIGNER (Pawn → Queen ♟️→👸)",
+        icon: "👸",
+        description: "Presentation governor that renders information for human review using discovery-safe language.",
+        allowed: ["Synthesize Findings", "Apply Board-Safe Filter", "Render UI Controls"],
+        forbidden: ["Enforcement Terminology", "Direct Reporting", "Autonomous Notification"],
+        code: `// SafeLexicon ensures discovery-safety\nconst cleanOutput = SafeLexicon.filter(rawFindings);`
+    }
 ];
-    `
+
+const AgentDetail: React.FC<{ agent: AgentSpec }> = ({ agent }) => {
+    return (
+        <Card className="bg-gray-800/40 border-gray-700/50 mb-8 overflow-hidden">
+            <div className="p-6 border-b border-gray-700/50 flex items-center justify-between bg-gray-900/20">
+                <div className="flex items-center gap-4">
+                    <span className="text-4xl">{agent.icon}</span>
+                    <div>
+                        <h3 className="text-xl font-bold text-white tracking-tight">{agent.role}</h3>
+                        <p className="text-sm text-muted-foreground">{agent.description}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="p-6">
+                <dl className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <dt className="text-xs font-black uppercase tracking-widest text-green-500 mb-4 flex items-center gap-2">
+                            <ShieldCheck className="h-4 w-4" />
+                            Allowed Strategic Actions
+                        </dt>
+                        <dd className="space-y-2">
+                            {agent.allowed.map((action, idx) => (
+                                <div key={idx} className="flex items-center gap-2 text-sm text-gray-300 bg-green-500/5 border border-green-500/10 px-3 py-1.5 rounded-lg">
+                                    <div className="h-1 w-1 rounded-full bg-green-500" />
+                                    {action}
+                                </div>
+                            ))}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt className="text-xs font-black uppercase tracking-widest text-severity-critical mb-4 flex items-center gap-2">
+                            <ShieldAlert className="h-4 w-4" />
+                            Explicitly Forbidden
+                        </dt>
+                        <dd className="space-y-2">
+                            {agent.forbidden.map((action, idx) => (
+                                <div key={idx} className="flex items-center gap-2 text-sm text-gray-400 bg-red-500/5 border border-red-500/10 px-3 py-1.5 rounded-lg italic">
+                                    <div className="h-1 w-1 rounded-full bg-red-500" />
+                                    {action}
+                                </div>
+                            ))}
+                        </dd>
+                    </div>
+                </dl>
+
+                <div className="mt-8 pt-8 border-t border-gray-700/50">
+                    <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs font-bold text-muted-foreground flex items-center gap-2">
+                            <Code2 className="h-3 w-3" />
+                            Invariants & Checks
+                        </span>
+                    </div>
+                    <pre className="bg-gray-950/80 p-4 rounded-xl border border-gray-800 text-[13px] font-mono text-cyan-300 overflow-x-auto">
+                        <code>{agent.code}</code>
+                    </pre>
+                </div>
+            </div>
+        </Card>
+    );
 };
 
 const AgentContracts: React.FC = () => {
     return (
-        <div>
-            <SectionHeader title="Formal Agent Contracts — As Code" subtitle="Production-grade agent contract specifications, enforceable by policy and auditable." />
-            <div className="space-y-8">
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <CodeBlock title="1. Core Agent Contract (TypeScript)">{agentContracts.core}</CodeBlock>
-                    <CodeBlock title="2. Human (King ♔)">{agentContracts.human}</CodeBlock>
-                    <CodeBlock title="3. Orchestrator (Queen ♛)">{agentContracts.orchestrator}</CodeBlock>
-                    <CodeBlock title="4. Explorer (Knight ♞)">{agentContracts.explorer}</CodeBlock>
-                    <CodeBlock title="5. Librarian (Pawn ♟️)">{agentContracts.librarian}</CodeBlock>
-                    <CodeBlock title="6. Oracle (Bishop ♝)">{agentContracts.oracle}</CodeBlock>
-                    <CodeBlock title="7. Fixer (Rook ♜)">{agentContracts.fixer}</CodeBlock>
-                    <CodeBlock title="8. Designer (Pawn → Queen ♟️→👸)">{agentContracts.designer}</CodeBlock>
-                </Card>
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <CodeBlock title="9. Hard Constitutional Invariants (Machine-Enforced)">{agentContracts.invariants}</CodeBlock>
-                </Card>
+        <div className="space-y-8 pb-12">
+            <SectionHeader 
+                title="Formal Agent Contracts" 
+                subtitle="High-fidelity definitions of role boundaries and machine-enforced prohibitions." 
+            />
+            
+            <Card className="bg-blue-500/5 border-blue-500/20 p-6 mb-12">
+                <div className="flex items-start gap-4">
+                    <UserCircle2 className="h-6 w-6 text-blue-400 shrink-0 mt-1" />
+                    <div>
+                        <h2 className="text-lg font-bold text-white mb-2">The Multi-Agent Orchestration Protocol</h2>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            Each agent is a bounded context with zero autonomous authority. Every action is cryptographically 
+                            logged and checked against constitutional invariants. If an agent attempts to interpreted law 
+                            or invent remedies, the Orchestrator triggers an immediate fail-closed state.
+                        </p>
+                    </div>
+                </div>
+            </Card>
+
+            <div className="space-y-2">
+                {AGENTS.map((agent, i) => (
+                    <AgentDetail key={i} agent={agent} />
+                ))}
             </div>
         </div>
     );

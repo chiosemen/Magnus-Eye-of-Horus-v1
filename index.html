@@ -7,6 +7,9 @@
     <title>Magnus Eye of Horus – Grandmaster Playbook</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Shim process for environment variable safety in browser ESM
+        window.process = { env: { EYE_API_BASE_URL: 'https://api.eyeofhorus.local' } };
+
         tailwind.config = {
           darkMode: "class",
           theme: {
@@ -49,8 +52,6 @@
         @layer base {
           :root {
             --radius: 12px;
-
-            /* shadcn base */
             --background: 0 0% 100%;
             --foreground: 222 47% 11%;
             --card: 0 0% 100%;
@@ -60,19 +61,14 @@
             --border: 214 32% 91%;
             --input: 214 32% 91%;
             --ring: 222 47% 11%;
-
-            /* Magnus / Eye of Horus brand */
             --primary: 222 47% 11%;
             --primary-foreground: 210 40% 98%;
             --accent: 45 93% 47%;
             --accent-foreground: 222 47% 11%;
-
-            /* Severity */
             --severity-critical: 0 84% 60%;
             --severity-high: 24 95% 53%;
             --severity-medium: 45 93% 47%;
             --severity-low: 210 20% 70%;
-
             --blocked-bg: 0 84% 60%;
             --blocked-fg: 0 0% 100%;
           }
@@ -87,24 +83,18 @@
             --border: 217 33% 18%;
             --input: 217 33% 18%;
             --ring: 210 40% 98%;
-
             --primary: 210 40% 98%;
             --primary-foreground: 222 47% 11%;
             --accent: 45 93% 47%;
             --accent-foreground: 222 47% 11%;
-
             --blocked-bg: 0 62% 42%;
             --blocked-fg: 0 0% 100%;
           }
         }
         
         @layer base {
-          * {
-            @apply border-border;
-          }
-          body {
-            @apply bg-background text-foreground;
-          }
+          * { @apply border-border; }
+          body { @apply bg-background text-foreground; }
         }
     </style>
     <script type="importmap">
@@ -124,6 +114,6 @@
 </head>
 <body class="bg-background text-foreground">
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>

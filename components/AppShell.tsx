@@ -1,7 +1,6 @@
-
 import React from 'react';
-import Topbar from './Topbar';
-import { Page } from '../App';
+import Topbar from './Topbar.tsx';
+import { Page } from '../App.tsx';
 
 interface AppShellProps {
     children: React.ReactNode;

@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { cn } from "../lib/utils";
-import { Badge } from "./ui/badge";
-import { Severity } from "../lib/types";
+import { cn } from "../lib/utils.ts";
+import { Badge } from "./ui/badge.tsx";
+import { Severity } from "../lib/types.ts";
 
 const label: Record<Severity, string> = {
   critical: "Blocked — must remediate",

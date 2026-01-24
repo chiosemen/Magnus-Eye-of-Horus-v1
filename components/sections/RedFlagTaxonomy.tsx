@@ -1,9 +1,9 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
-import type { RedFlag } from '../../types';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
+import type { RedFlag } from '../../types.ts';
 
 const taxPreparerFlags: RedFlag[] = [
     { 
@@ -62,7 +62,6 @@ const FlagTable: React.FC<{ flags: RedFlag[], title: string }> = ({ flags, title
         }
     };
     return (
-        // FIX: Apply explicit styling to Card component to match original design after component consolidation.
         <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
             <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
             <div className="overflow-x-auto">
@@ -137,7 +136,6 @@ const DAFRedFlags = {
 };
 
 const FlagList: React.FC = () => (
-    // FIX: Apply explicit styling to Card component to match original design after component consolidation.
     <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
         <h2 className="text-xl font-semibold text-white mb-4">B. DAF / Nonprofit Red-Flag Taxonomy</h2>
         <div className="space-y-6">

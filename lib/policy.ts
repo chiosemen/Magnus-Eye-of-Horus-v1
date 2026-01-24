@@ -1,5 +1,4 @@
-
-import { ControlsState, RedFlag } from "./types";
+import { ControlsState, RedFlag } from "./types.ts";
 
 export function isBlocked(controls: ControlsState, redFlags: RedFlag[]): boolean {
   if (!controls.failClosedOnCritical) return false;

@@ -1,8 +1,8 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const ModuleSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">

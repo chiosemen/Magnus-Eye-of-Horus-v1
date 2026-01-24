@@ -1,8 +1,8 @@
 
 import React, { useEffect, useRef } from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const SystemsArchitecture: React.FC = () => {
     const agenticFlowRef = useRef<HTMLDivElement>(null);

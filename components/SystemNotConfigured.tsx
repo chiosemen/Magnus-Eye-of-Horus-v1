@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { AlertTriangle } from "lucide-react";
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 
 export function SystemNotConfigured({ error }: { error: string }) {
   return (

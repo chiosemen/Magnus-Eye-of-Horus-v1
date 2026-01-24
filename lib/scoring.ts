@@ -1,5 +1,4 @@
-
-import { RedFlag, Severity } from "./types";
+import { RedFlag, Severity } from "./types.ts";
 
 const baseWeight: Record<Severity, number> = {
   critical: 30,

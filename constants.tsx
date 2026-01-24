@@ -1,6 +1,5 @@
-
 import React from 'react';
-import type { Section } from './types';
+import type { Section } from './types.ts';
 
 const IconWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -10,7 +9,7 @@ const IconWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 export const SECTIONS: Section[] = [
     { id: 'constitution', title: 'I. Grandmaster Constitution', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v11.494m-9-5.747h18" /></IconWrapper> },
-    { id: 'contracts', title: 'II. Agent Contracts', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></IconWrapper> },
+    { id: 'contracts', title: 'II. Agent Contracts', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></IconWrapper> },
     { id: 'agent_directives', title: 'III. Agent Directives & Constraints', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" /></IconWrapper> },
     { id: 'taxonomy', title: 'IV. Governance Taxonomy', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></IconWrapper> },
     { id: 'adversary_modeling', title: 'V. Regulatory Analytics Modeling', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M12 1.75L3.25 5v6.494c0 4.19 3.91 7.938 8.75 9.256 4.84-1.318 8.75-5.066 8.75-9.256V5L12 1.75z" /></IconWrapper> },
@@ -20,8 +19,8 @@ export const SECTIONS: Section[] = [
     { id: 'control_inventory', title: 'IX. Control Inventory', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.11c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></IconWrapper> },
     { id: 'policy', title: 'X. Policy-as-Code Engine', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></IconWrapper> },
     { id: 'architecture', title: 'XI. Systems Architecture', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.862 12.034 10.274 11 12 11c1.726 0 3.138 1.034 3.316 2.342m-6.632 0a2.95 2.95 0 00-2.95 2.95v.5c0 1.628 1.322 2.95 2.95 2.95h6.632c1.628 0 2.95-1.322 2.95-2.95v-.5a2.95 2.95 0 00-2.95-2.95m-6.632 0H6.75m6.5 0H18" /></IconWrapper> },
-    { id: 'playbooks', title: 'XII. Remediation Playbooks', icon: <IconWrapper><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" /></IconWrapper> },
-    { id: 'logging_doctrine', title: 'XIII. Logging Doctrine', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-5 8h.01M9 13h.01M9 17h.01" /></IconWrapper> },
+    { id: 'playbooks', title: 'XII. Remediation Playbooks', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h7" /></IconWrapper> },
+    { id: 'logging_doctrine', title: 'XIII. Logging Doctrine', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-5 8h.01M9 13h.01M9 17h.01" /></IconWrapper> },
     { id: 'system_justification', title: 'XIV. System Justification', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.417l5.5-5.5a1 1 0 011.414 0l5.5 5.5a12.02 12.02 0 00-2.382-8.417z" /></IconWrapper> },
     { id: 'task_input_templates', title: 'XV. Task-Input Templates', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3m0 0l3-3m-3 3v6m0-13.5a9 9 0 11-18 0 9 9 0 0118 0z" /></IconWrapper> },
     { id: 'audit', title: 'XVI. Audit Response Module', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></IconWrapper> },
@@ -31,5 +30,5 @@ export const SECTIONS: Section[] = [
     { id: 'system_boundaries', title: 'XX. System Boundaries', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.602-3.751m-.227-4.24a12.025 12.025 0 00-4.244-2.228" /></IconWrapper> },
     { id: 'flow', title: 'XXI. Final Operational Flow', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></IconWrapper> },
     { id: 'investor_diligence', title: 'XXII. Investor Diligence Appendix', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" /></IconWrapper> },
-    { id: 'performative_compliance', title: 'XXIII. Performative Compliance Countermeasures', icon: <IconWrapper><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></IconWrapper> },
+    { id: 'performative_compliance', title: 'XXIII. Performative Compliance Countermeasures', icon: <IconWrapper><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></IconWrapper> },
 ];

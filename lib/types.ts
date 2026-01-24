@@ -1,4 +1,3 @@
-
 export type Severity = "critical" | "high" | "medium" | "low";
 
 export type CaseStatus = "OPEN" | "BLOCKED" | "REMEDIATING" | "RESOLVED";
@@ -8,7 +7,10 @@ export type RedFlagModule =
   | "DAF-4966-NONQUALIFIED_NO_ER"
   | "DAF-4958-EXCESS_BENEFIT"
   | "GOV-CONFLICT_MISSING"
-  | "DOC-MISSING_APPROVALS";
+  | "DOC-MISSING_APPROVALS"
+  | "BEH-VELOCITY_ANOMALY"
+  | "BEH-LOW_SUBSTANCE"
+  | "BEH-SIGNAL_TO_NOISE_OUTLIER";
 
 export interface RedFlag {
   id: string;
@@ -21,6 +23,9 @@ export interface RedFlag {
   status: "OPEN" | "RESOLVED";
   resolvedAt?: string;
   resolvedBy?: string;
+  proofDensity?: number; // 0-100 score of document substance
+  dwellTimeSeconds?: number; // How long the user spent on the task
+  normativeDwellTime?: number; // Expected time for a diligent human
 }
 
 export interface Case {
@@ -38,10 +43,24 @@ export interface Case {
 export interface ControlsState {
   failClosedOnCritical: boolean;
   evidenceRequiredToResolve: boolean;
-  allowRiskWaiver: boolean; // default false
+  allowRiskWaiver: boolean;
   killSwitches: Record<string, { enabled: boolean; reason?: string; expiresAt?: string }>;
+  
+  // Data Ingestion Rules
+  acceptManualUploads: boolean;
+  requireSourceAttribution: boolean;
+
+  // Policy Enforcement
+  autoRequireIndependentApproval: boolean;
+  expenditureResponsibilityRequired: boolean;
+  
+  // Performative Compliance Gates
+  enforceMinimumDwellTime: boolean;
+  flagLowSubstanceDocs: boolean;
+
   visibility: {
     showScoringFormulaToClients: boolean;
     showRedFlagDetailToClients: boolean;
+    showOnlyRemediationSteps: boolean;
   };
 }

@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 type Role = 'all' | 'operator' | 'compliance' | 'board';
 
@@ -174,7 +174,7 @@ CONSTRAINTS:
 • Index + explanation only
 
 OBJECTIVE:
-Assemble a structured, defensible response packet outline.
+Assemble a structured, defensive response packet outline.
 `
     },
     {

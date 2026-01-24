@@ -1,8 +1,8 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const DiligencePoint: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div>
@@ -35,21 +35,21 @@ const InvestorDiligence: React.FC = () => {
 
                         <DiligencePoint title="2. The Trust Flywheel as a Low-Cost Growth Engine">
                             <p>The system's architecture creates a self-reinforcing growth loop that does not depend on traditional sales and marketing expenditure.</p>
-                            <ol className="list-decimal list-inside space-y-2 text-gray-300">
+                            <ul className="list-disc list-inside space-y-2 text-gray-300">
                                 <li><strong>Users</strong> adopt for personal risk reduction.</li>
                                 <li><strong>Boards</strong> approve based on verifiable governance and reduced organizational risk.</li>
                                 <li><strong>Auditors & Regulators</strong> learn to trust the system's legible, unambiguous audit packets, leading to smoother inquiries.</li>
                                 <li><strong>Courts</strong> value the objective, non-speculative evidence in litigation.</li>
-                            </ol>
+                            </ul>
                             <p>This flywheel lowers customer acquisition cost (CAC) as trust in the system becomes a market-wide asset, pulling in new users who want the "Magnus standard" of defensibility.</p>
                         </DiligencePoint>
                          <DiligencePoint title="3. Redefined Total Addressable Market (TAM)">
                              <p>Eye of Horus is not merely competing in the "compliance software" market. It is creating and addressing a new, more valuable market.</p>
                              <ul className="list-disc list-inside space-y-2 text-gray-300">
                                  <li><strong>From Automation to Insurance:</strong> The value proposition is not efficiency, but risk transfer and mitigation. It's less like a CRM and more like a Directors & Officers (D&O) insurance policy written in code.</li>
-                                 <li><strong>Target Market:</strong> The true TAM is not the budget for software, but the budget for legal counsel, insurance, and contingency reserves related to fiduciary and regulatory risk. This is a significantly larger and less price-sensitive market.</li>
+                                 <li><strong>Target Market:</strong> The true TAM is not the budget for software, but the budget for legal counsel, insurance, and contingency reserves related to fiduciary and regulatory risk. This is a significantly larger and more resilient pool of capital.</li>
                              </ul>
-                        </DiligencePoint>
+                         </DiligencePoint>
                     </div>
                 </Card>
             </div>

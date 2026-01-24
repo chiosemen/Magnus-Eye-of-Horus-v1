@@ -1,8 +1,8 @@
-
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card, CardContent } from "./ui/Card";
-import { Button } from "./ui/button";
+// FIX: Use lowercase filename to resolve casing conflict with Card.tsx.
+import { Card, CardContent } from "./ui/card.tsx";
+// FIX: Use explicit extension for consistency.
+import { Button } from "./ui/button.tsx";
 
 export function BlockedBanner({
   onRequestEvidence,

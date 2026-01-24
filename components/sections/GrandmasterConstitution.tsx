@@ -1,8 +1,8 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const DoctrineItem: React.FC<{ title: string; text: string }> = ({ title, text }) => (
     <li className="space-y-1">
@@ -16,7 +16,6 @@ const GrandmasterConstitution: React.FC = () => {
         <div>
             <SectionHeader title="The Grandmaster Constitution" subtitle="Canonical Doctrine, Invariants, and Prohibitions of the Magnus System" />
             <div className="space-y-8">
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">I. Canonical Doctrine (Locked)</h2>
                     <p className="text-gray-400 mb-6">These doctrines define the unchangeable philosophy and character of the system. They are the strategic principles from which all rules and behaviors are derived.</p>
@@ -48,7 +47,6 @@ const GrandmasterConstitution: React.FC = () => {
                     </ol>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">II. Non-Negotiable System Invariants</h2>
                      <p className="text-gray-400 mb-6">These are the technical and logical conditions that must always hold true. A violation of any invariant constitutes a critical system failure.</p>
@@ -63,7 +61,7 @@ const GrandmasterConstitution: React.FC = () => {
                         />
                         <DoctrineItem 
                             title="Immutability & Traceability Invariant"
-                            text="Every action, query, decision, and policy version is immutably logged and cryptographically hashed. The entire history of any transaction must be perfectly reproducible for an audit."
+                            text="Every action, query, decision, and policy version is immutability logged and cryptographically hashed. The entire history of any transaction must be perfectly reproducible for an audit."
                         />
                         <DoctrineItem 
                             title="Proof Density Invariant"
@@ -80,7 +78,6 @@ const GrandmasterConstitution: React.FC = () => {
                     </ul>
                 </Card>
 
-                {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
                 <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
                     <h2 className="text-xl font-semibold text-white mb-4">III. Explicitly Rejected Capabilities</h2>
                     <p className="text-gray-400 mb-6">To maintain its integrity and defensive posture, the system is permanently and architecturally forbidden from possessing the following capabilities.</p>
@@ -94,35 +91,8 @@ const GrandmasterConstitution: React.FC = () => {
                             text="The system provides no mechanism for anonymous or direct reporting to authorities. Rationale: This would transform the system from a defensive remediation tool into an offensive enforcement tool, violating the core Remediation Doctrine and creating irresolvable ethical conflicts."
                         />
                          <DoctrineItem 
-                            title="Automated Enforcement"
-                            text="The system cannot block transactions, suspend accounts, or file reports autonomously. Rationale: This violates the Grandmaster Doctrine of human sovereignty. All material actions require explicit, logged human approval via the Control Plane."
-                        />
-                         <DoctrineItem 
-                            title="Open-Web Intelligence Gathering"
-                            text="Agents are forbidden from querying the open internet or any external data source. Rationale: This maintains a 'discovery-safe' data boundary. The system operates only on a locked, version-controlled corpus of internal data and authoritative policies to ensure perfect auditability."
-                        />
-                         <DoctrineItem 
                             title="Confidence Scoring"
-                            text="Agent outputs are never accompanied by a 'confidence score' (e.g., '85% confident this is self-dealing'). Rationale: Confidence scores are probabilistic and violate the mandate for deterministic, rule-based outputs. A flag is either 100% triggered by a rule or 0%."
-                        />
-                    </ul>
-                </Card>
-                 {/* FIX: Apply explicit styling to Card component to match original design after component consolidation. */}
-                <Card className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-6">
-                    <h2 className="text-xl font-semibold text-white mb-4">IV. Anti-Collusion Doctrine & System Constraints</h2>
-                    <p className="text-gray-400 mb-6">To ensure agentic integrity, the following principles of separation are enforced architecturally. These rules prevent agents from improperly influencing one another, ensuring that the Human receives an unbiased synthesis of independent analyses.</p>
-                    <ul className="list-disc list-inside space-y-4 text-gray-300">
-                        <DoctrineItem 
-                            title="No Reinforcement Without Independent Evidence"
-                            text="Enforceable System Constraint: An agent's output is tied to the specific hash of its inputs. Agent B cannot simply accept Agent A's conclusion as a valid input; it must receive the raw facts from Agent A and re-run its own independent analysis. This prevents 'information cascades' where an early, potentially erroneous conclusion is amplified without re-verification."
-                        />
-                         <DoctrineItem 
-                            title="No Overriding Policy"
-                            text="Enforceable System Constraint: The Policy-as-Code engine is a terminal, read-only service for all other agents. No agent possesses credentials or API endpoints that would allow it to write, modify, or temporarily ignore a policy file. Any attempt to do so results in a logged, critical system halt."
-                        />
-                         <DoctrineItem 
-                            title="No Escalation of Scope"
-                            text="Enforceable System Constraint: The Orchestrator issues a transaction-specific, ephemeral data access scope to the Explorer. The data access layer will reject any query from the Explorer that falls outside this exact scope. This prevents an agent from 'getting curious' and accessing data not explicitly authorized by the Human's initial objective."
+                            text="Agent outputs are never accompanied by a 'confidence score' (e.g., '85% confident this is self-dealing'). Rationale: Confidence scores are probabilistic and violate the mandate for deterministic, rule-based outputs."
                         />
                     </ul>
                 </Card>

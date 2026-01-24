@@ -1,8 +1,8 @@
 
 import React from 'react';
-// FIX: Standardize import casing to use the 'Card.tsx' alias to prevent module resolution conflicts.
-import { Card } from '../ui/Card';
-import SectionHeader from '../ui/SectionHeader';
+// FIX: Use lowercase filename for card component to resolve casing conflicts.
+import { Card } from '../ui/card.tsx';
+import SectionHeader from '../ui/SectionHeader.tsx';
 
 const Toggle: React.FC<{ label: string; description: string; active?: boolean }> = ({ label, description, active=false }) => (
     <div className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
