@@ -1,6 +1,6 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardContent } from "./ui/Card.tsx";
+import { Card, CardContent } from "./ui/card.tsx";
 import { Button } from "./ui/button.tsx";
 
 export function BlockedBanner({

@@ -6,7 +6,8 @@
     <title>Magnus Eye of Horus – Grandmaster Playbook</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        window.process = { env: { API_KEY: '', EYE_API_BASE_URL: 'https://api.eyeofhorus.local' } };
+        // Runtime configuration must be provided by the backend; do not expose secrets in the browser.
+        // Client should call relative endpoints (e.g., '/api') which are proxied by a secure backend.
 
         tailwind.config = {
           darkMode: "class",

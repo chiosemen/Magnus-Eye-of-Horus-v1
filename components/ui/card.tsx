@@ -6,7 +6,7 @@ import { featureHover } from "../../lib/motion.ts"
 // Standard Card component with hover motion support - identical to Card.tsx to resolve casing conflicts
 export const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentProps<typeof motion.div>
 >(({ className, ...props }, ref) => (
   <motion.div
     ref={ref}

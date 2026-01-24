@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
 import { Button } from '../ui/button.tsx';
 import { BlockedBanner } from '../BlockedBanner.tsx';
-import { Case, RedFlag, ControlsState } from '../../lib/types.ts';
+import { Case, RedFlag } from '../../lib/types.ts';
 import { band } from '../../lib/scoring.ts';
 import { 
-    AlertCircle, 
+    ShieldAlert,
     Clock, 
     FileWarning, 
     Fingerprint, 
-    ShieldAlert, 
     Activity, 
     ChevronRight,
     Search
@@ -19,23 +18,7 @@ import { cn } from '../../lib/utils.ts';
 import { motion } from 'framer-motion';
 import { pageFade, sectionReveal } from '../../lib/motion.ts';
 
-const mockControls: ControlsState = {
-    failClosedOnCritical: true,
-    evidenceRequiredToResolve: true,
-    allowRiskWaiver: false,
-    killSwitches: {},
-    acceptManualUploads: true,
-    requireSourceAttribution: true,
-    autoRequireIndependentApproval: true,
-    expenditureResponsibilityRequired: true,
-    enforceMinimumDwellTime: true,
-    flagLowSubstanceDocs: true,
-    visibility: {
-        showScoringFormulaToClients: false,
-        showRedFlagDetailToClients: true,
-        showOnlyRemediationSteps: false
-    }
-};
+
 
 const mockRedFlags: RedFlag[] = [
     {
@@ -200,7 +183,7 @@ const HoldToConfirm: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
 
 const CasesPage: React.FC = () => {
     const handleConfirm = () => {
-        console.log("Remediation pack generating...");
+        // TODO: wire to backend / audit-logged action. Logging removed to avoid client-side console noise.
     };
 
     return (

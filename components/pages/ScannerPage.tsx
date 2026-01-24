@@ -1,6 +1,6 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card.tsx';
 import { Button } from '../ui/button.tsx';
 import { Upload, FileText, Database, Fingerprint, Zap, Gauge, Binary, BarChart3, Activity } from 'lucide-react';
 import ToggleSwitch from '../ui/ToggleSwitch.tsx';
@@ -86,7 +86,7 @@ const ScannerPage: React.FC = () => {
                         <div className="space-y-3">
                             <div className="space-y-1">
                                 <div className="flex justify-between text-[10px] font-bold uppercase">
-                                    <span className="flex items-center gap-1"><BarChart3 className="h-3 w-3" /> DIF Weights > 90%</span>
+                                    <span className="flex items-center gap-1"><BarChart3 className="h-3 w-3" /> DIF Weights {'>'} 90%</span>
                                     <span className="text-severity-critical">3</span>
                                 </div>
                                 <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
@@ -95,7 +95,7 @@ const ScannerPage: React.FC = () => {
                             </div>
                              <div className="space-y-1">
                                 <div className="flex justify-between text-[10px] font-bold uppercase">
-                                    <span className="flex items-center gap-1"><Binary className="h-3 w-3" /> MSA Z-Score > 2.0</span>
+                                    <span className="flex items-center gap-1"><Binary className="h-3 w-3" /> MSA Z-Score {'>'} 2.0</span>
                                     <span className="text-severity-high">7</span>
                                 </div>
                                 <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
