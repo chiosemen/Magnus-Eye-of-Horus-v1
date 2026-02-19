@@ -1,6 +1,6 @@
 import React from 'react';
 // FIX: Standardize casing to Card.tsx to resolve compiler conflict.
-import { Card } from '../ui/Card.tsx';
+import { Card } from '../ui/card.tsx';
 import SectionHeader from '../ui/SectionHeader.tsx';
 
 const CodeBlock: React.FC<{ title: string; children: React.ReactNode; lang?: string }> = ({ title, children, lang = 'rego' }) => (
@@ -84,7 +84,7 @@ when {
                      <h2 className="text-xl font-semibold text-white mb-4">Core Architecture</h2>
                     <ul className="list-disc list-inside space-y-3 text-gray-300">
                         <li>
-                            <strong>Enforcement Boundaries:</strong> The engine's output is purely a decision object (e.g., `{ "allow": false, "reasons": [...] }`). It has no capability to execute actions. The Fixer agent consumes this object to propose controls to the Human.
+                            <strong>Enforcement Boundaries:</strong> The engine's output is purely a decision object (e.g., {'{ "allow": false, "reasons": [...] }'}). It has no capability to execute actions. The Fixer agent consumes this object to propose controls to the Human.
                         </li>
                         <li>
                             <strong>Fail-Closed Behavior:</strong> If the policy engine fails to execute for any reason (e.g., malformed input, runtime error), the system's global configuration dictates a `default deny`. This prevents system failure from creating compliance gaps.
